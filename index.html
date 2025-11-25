@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV & Portafolio | Renzo Caycho</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuentes Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Iconos (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#8b5cf6', // Violeta principal
+                        dark: '#0d1117',    // Fondo estilo GitHub (Dark dimmed)
+                        card: '#161b22',    // Fondo tarjetas estilo GitHub
+                        border: '#30363d',  // Bordes sutiles
+                        text: '#c9d1d9',    // Texto principal
+                        secondary: '#8b949e' // Texto secundario
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Barra de scroll personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d1117;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8b5cf6;
+        }
+    </style>
+</head>
+<body class="bg-dark text-text font-sans antialiased selection:bg-primary selection:text-white">
+
+    <!-- Navegación -->
+    <nav class="fixed w-full z-50 bg-dark/95 backdrop-blur shadow-lg border-b border-border">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <span class="text-xl font-bold text-white"><span class="text-primary">&lt;</span> R.C. <span class="text-primary">/&gt;</span></span>
+            
+            <div class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#perfil" class="hover:text-primary transition-colors">Perfil</a>
+                <a href="#experiencia" class="hover:text-primary transition-colors">Experiencia</a>
+                <a href="#proyectos" class="hover:text-primary transition-colors">Proyectos</a>
+                <a href="#lenguajes" class="hover:text-primary transition-colors">Lenguajes</a>
+                <a href="#certificaciones" class="hover:text-primary transition-colors">Certificaciones</a>
+            </div>
+            
+            <!-- Botón Móvil -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-white"><i class="fas fa-bars"></i></button>
+        </div>
+        <!-- Menú Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-card border-t border-border">
+            <a href="#perfil" class="block px-6 py-3 hover:bg-slate-700">Perfil</a>
+            <a href="#experiencia" class="block px-6 py-3 hover:bg-slate-700">Experiencia</a>
+            <a href="#proyectos" class="block px-6 py-3 hover:bg-slate-700">Proyectos</a>
+            <a href="#lenguajes" class="block px-6 py-3 hover:bg-slate-700">Lenguajes</a>
+            <a href="#certificaciones" class="block px-6 py-3 hover:bg-slate-700">Certificaciones</a>
+        </div>
+    </nav>
+
+    <!-- HEADER / HERO -->
+    <header id="perfil" class="pt-32 pb-20 px-6 relative overflow-hidden">
+        <div class="container mx-auto max-w-5xl">
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                <!-- Foto -->
+                <div class="w-40 h-40 md:w-56 md:h-56 shrink-0 relative group">
+                    <div class="absolute inset-0 bg-primary rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                    <img src="img/profile.jpeg" alt="Renzo Caycho" class="relative w-full h-full object-cover rounded-full border-4 border-border shadow-2xl">
+                </div>
+                
+                <!-- Intro Texto -->
+                <div class="text-center md:text-left">
+                    <h2 class="text-primary font-bold tracking-wide uppercase text-sm mb-2">Ingeniero en Sistemas en Formación</h2>
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Renzo Caycho</h1>
+                    <p class="text-lg text-secondary max-w-2xl mb-6">
+                        Desarrollador enfocado en <strong>Páginas y Plataformas Web</strong>. Estudiante de Ingeniería en Sistemas Computacionales con una sólida base en Ciberseguridad y Diseño. Combino habilidades técnicas con experiencia real en liderazgo de equipos y atención al usuario.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                        <a href="https://www.linkedin.com/in/renzo-caycho-647525150" target="_blank" class="flex items-center gap-2 bg-[#0a66c2] text-white px-6 py-2 rounded-md font-bold hover:bg-[#004182] transition shadow-lg shadow-blue-900/20">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="https://github.com/zekkencito" target="_blank" class="flex items-center gap-2 bg-[#2da44e] text-white px-6 py-2 rounded-md font-bold hover:bg-[#2c974b] transition shadow-lg shadow-green-900/20">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="mailto:renzocaycho@outlook.es" class="flex items-center gap-2 border border-border bg-card px-6 py-2 rounded-md hover:border-white hover:text-white transition text-secondary">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                    </div>
+                    <div class="mt-4 text-sm text-secondary flex items-center justify-center md:justify-start gap-2">
+                        <i class="fas fa-map-marker-alt"></i> Nuevo Casas Grandes, Chihuahua
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- EXPERIENCIA LABORAL -->
+    <section id="experiencia" class="py-16 bg-card/30 border-y border-border">
+        <div class="container mx-auto max-w-4xl px-6">
+            <h2 class="text-3xl font-bold text-white mb-10 flex items-center gap-3">
+                <i class="fas fa-briefcase text-primary"></i> Experiencia Laboral
+            </h2>
+
+            <div class="relative pl-8 border-l-2 border-border space-y-12">
+                
+                <!-- John Deere -->
+                <div class="relative fade-in pl-6">
+                    <div class="absolute -left-[9px] top-1 w-4 h-4 bg-primary rounded-full ring-4 ring-dark"></div>
+                    <h3 class="text-xl font-bold text-white">Servicio de Limpieza y Atención</h3>
+                    <div class="text-primary font-medium mb-2">John Deere | 2024 - Actualidad</div>
+                    <p class="text-secondary mb-4">
+                        Encargado de la limpieza general y organización del local de atención al cliente.
+                    </p>
+                    <ul class="list-disc list-inside space-y-1 text-secondary text-sm">
+                        <li>Desarrollo de paciencia, organización y atención al detalle.</li>
+                        <li>Mantenimiento de estándares de calidad en espacios de trabajo.</li>
+                    </ul>
+                </div>
+
+                <!-- WebHelp -->
+                <div class="relative fade-in pl-6">
+                    <div class="absolute -left-[9px] top-1 w-4 h-4 bg-border rounded-full ring-4 ring-dark"></div>
+                    <h3 class="text-xl font-bold text-white">Asistencia al Cliente (Glovo)</h3>
+                    <div class="text-secondary font-medium mb-2">WebHelp | 2022</div>
+                    <p class="text-secondary mb-4">
+                        Soporte técnico y atención al cliente para usuarios de Glovo en España.
+                    </p>
+                    <ul class="list-disc list-inside space-y-1 text-secondary text-sm">
+                        <li>Uso avanzado de herramientas de gestión y comunicación (<strong>Slack</strong>, CRM).</li>
+                        <li>Resolución de conflictos en tiempo real con empatía.</li>
+                        <li>Trabajo colaborativo en entorno digital remoto.</li>
+                    </ul>
+                </div>
+
+                <!-- Activa Research -->
+                <div class="relative fade-in pl-6">
+                    <div class="absolute -left-[9px] top-1 w-4 h-4 bg-border rounded-full ring-4 ring-dark"></div>
+                    <h3 class="text-xl font-bold text-white">Encuestador</h3>
+                    <div class="text-secondary font-medium mb-2">Activa Research | 2021</div>
+                    <p class="text-secondary mb-4">
+                        Realización de estudios de mercado y servicios gubernamentales para el público chileno.
+                    </p>
+                    <ul class="list-disc list-inside space-y-1 text-secondary text-sm">
+                        <li>Desarrollo de habilidades de persuasión y comunicación verbal.</li>
+                    </ul>
+                </div>
+
+                <!-- Misionero -->
+                <div class="relative fade-in pl-6">
+                    <div class="absolute -left-[9px] top-1 w-4 h-4 bg-border rounded-full ring-4 ring-dark"></div>
+                    <h3 class="text-xl font-bold text-white">Voluntariado / Misionero</h3>
+                    <div class="text-secondary font-medium mb-2">La Iglesia de Jesucristo | 2018 - 2020</div>
+                    <p class="text-secondary mb-4">
+                        Servicio comunitario de tiempo completo en Ciudad de México.
+                    </p>
+                    <ul class="list-disc list-inside space-y-1 text-secondary text-sm">
+                        <li>Liderazgo de equipos multiculturales.</li>
+                        <li>Gestión del estrés y adaptabilidad a nuevos entornos.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROYECTOS (NUEVA SECCIÓN) -->
+    <section id="proyectos" class="py-16 bg-dark">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+                <i class="fas fa-code-branch text-primary"></i> Mis Proyectos
+            </h2>
+            <p class="text-secondary mb-10">Colección de desarrollos web y plataformas.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Proyecto 1 (Web) -->
+                <article class="bg-card rounded-lg border border-border p-6 hover:border-primary transition-all group fade-in">
+                    <div class="flex justify-between items-start mb-4">
+                        <i class="fas fa-laptop-code text-2xl text-primary"></i>
+                        <div class="flex gap-3 text-secondary text-lg">
+                            <a href="https://github.com/zekkencito/Gestor_de_calificaciones.git" target="_blank" class="hover:text-white"><i class="fab fa-github"></i></a>
+                            <a href="https://games-now.skyzerozx.com/Gestor_de_calificaciones/" target="_blank" rel="noopener noreferrer" class="hover:text-white"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Gestor administrativo para escuela primaria</h3>
+                    <p class="text-sm text-secondary mb-4">
+                        Desarrollo de un sitio web para administrar calificaciones y gestión de estudiantes.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="text-xs text-white bg-blue-900/30 px-2 py-1 rounded-full border border-blue-900/50">PHP</span>
+                        <span class="text-xs text-white bg-blue-900/30 px-2 py-1 rounded-full border border-blue-900/50">CSS3</span>
+                        <span class="text-xs text-white bg-yellow-900/30 px-2 py-1 rounded-full border border-yellow-900/50">JavaScript</span>
+                    </div>
+                </article>
+
+                <!-- Proyecto 2 (Sistema) -->
+                <article class="bg-card rounded-lg border border-border p-6 hover:border-primary transition-all group fade-in">
+                    <div class="flex justify-between items-start mb-4">
+                        <i class="fas fa-server text-2xl text-purple-500"></i>
+                        <div class="flex gap-3 text-secondary text-lg">
+                            <a href="https://github.com/garciatarelo/compify" target="_blank" class="hover:text-white"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Compify</h3>
+                    <p class="text-sm text-secondary mb-4">
+                        Plataforma web para comparar precios de laptops y componentes para PC.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="text-xs text-white bg-blue-900/30 px-2 py-1 rounded-full border border-blue-900/50">PHP</span>
+                        <span class="text-xs text-white bg-green-900/30 px-2 py-1 rounded-full border border-green-900/50">JavaScript</span>
+                        <span class="text-xs text-white bg-green-900/30 px-2 py-1 rounded-full border border-green-900/50">Blade</span>
+                        <span class="text-xs text-white bg-green-900/30 px-2 py-1 rounded-full border border-green-900/50">Python</span>
+                    </div>
+                </article>
+
+
+                <article class="bg-card rounded-lg border border-border p-6 hover:border-primary transition-all group fade-in">
+                    <div class="flex justify-between items-start mb-4">
+                        <i class="fas fa-shield-alt text-2xl text-green-500"></i>
+                        <div class="flex gap-3 text-secondary text-lg">
+                            <a href="https://github.com/zekkencito/ExperienciaVR.git" target="_blank" class="hover:text-white"><i class="fab fa-github"></i></a>
+                            <a href="https://games-now.skyzerozx.com/Sistemas/" target="_blank" class="hover:text-white"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Experiencia de Realidad Virtual</h3>
+                    <p class="text-sm text-secondary mb-4">
+                        Experiencia de realidad virtual a tráves del cuerpo humano.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="text-xs text-white bg-green-900/30 px-2 py-1 rounded-full border border-green-900/50">JavaScript</span>
+                        <span class="text-xs text-white bg-gray-700/50 px-2 py-1 rounded-full border border-gray-600">HTML</span>
+                    </div>
+                </article>
+
+
+                <!-- Proyecto 3 (Otro) -->
+                <article class="bg-card rounded-lg border border-border p-6 hover:border-primary transition-all group fade-in">
+                    <div class="flex justify-between items-start mb-4">
+                        <i class="fas fa-shield-alt text-2xl text-green-500"></i>
+                        <div class="flex gap-3 text-secondary text-lg">
+                            <a href="https://github.com/zekkencito/GamesNow.git" target="_blank" class="hover:text-white"><i class="fab fa-github"></i></a>
+                            <a href="https://games-now.skyzerozx.com/GamesNow/" target="_blank" class="hover:text-white"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Página de noticias de Videojuegos</h3>
+                    <p class="text-sm text-secondary mb-4">
+                        Página web para publicar noticias y reseñas de videojuegos.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="text-xs text-white bg-gray-700/50 px-2 py-1 rounded-full border border-gray-600">JavaScript</span>
+                        <span class="text-xs text-white bg-blue-900/30 px-2 py-1 rounded-full border border-blue-900/50">PHP</span>
+                        <span class="text-xs text-white bg-gray-700/50 px-2 py-1 rounded-full border border-gray-600">HTML</span>
+                        <span class="text-xs text-white bg-gray-700/50 px-2 py-1 rounded-full border border-gray-600">CSS</span>
+                    </div>
+                </article>
+
+                <article class="bg-card rounded-lg border border-border p-6 hover:border-primary transition-all group fade-in">
+                    <div class="flex justify-between items-start mb-4">
+                        <i class="fas fa-shield-alt text-2xl text-green-500"></i>
+                        <div class="flex gap-3 text-secondary text-lg">
+                            <a href="https://github.com/zekkencito/Earth3D.git" target="_blank" class="hover:text-white"><i class="fab fa-github"></i></a>
+                            <a href="https://games-now.skyzerozx.com/Earth3D/" target="_blank" class="hover:text-white"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Modelo de Tierra interactivo</h3>
+                    <p class="text-sm text-secondary mb-4">
+                        Modelo 3D interactivo de la Tierra con capas informativas.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="text-xs text-white bg-gray-700/50 px-2 py-1 rounded-full border border-gray-600">JavaScript</span>
+                        <span class="text-xs text-white bg-gray-700/50 px-2 py-1 rounded-full border border-gray-600">CSS</span>
+                        <span class="text-xs text-white bg-gray-700/50 px-2 py-1 rounded-full border border-gray-600">HTML</span>
+                        <span class="text-xs text-white bg-gray-700/50 px-2 py-1 rounded-full border border-gray-600">Python</span>
+                    </div>
+                </article>
+            </div>
+
+             <!-- Botón Ver Más -->
+            <div class="text-center mt-12 fade-in">
+                <a href="https://github.com/zekkencito?tab=repositories" target="_blank" class="inline-flex items-center gap-3 bg-transparent border border-primary text-primary px-8 py-3 rounded-full font-bold hover:bg-primary hover:text-white transition-all group">
+                    <i class="fab fa-github text-xl group-hover:rotate-12 transition-transform"></i>
+                    Ver más proyectos en GitHub
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LENGUAJES Y HABILIDADES (Estilo GitHub) -->
+    <section id="lenguajes" class="py-16 bg-card/30 border-y border-border">
+        <div class="container mx-auto max-w-5xl px-6">
+            <h2 class="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+                <i class="fas fa-terminal text-primary"></i> Lenguajes y Tecnologías
+            </h2>
+            <p class="text-secondary mb-8">Estadísticas basadas en el uso real en mis repositorios.</p>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Columna Lenguajes (Barras estilo GitHub) -->
+                <div class="fade-in">
+                    <h3 class="text-lg font-semibold text-white mb-6 border-b border-border pb-2">Top Languages</h3>
+                    
+                    <div class="space-y-5">
+                        
+                        <!-- PHP -->
+                        <div>
+                            <div class="flex justify-between mb-1 text-sm">
+                                <span class="text-white font-medium"><i class="fab fa-php text-indigo-400 mr-2"></i>PHP / Blade</span>
+                                <span class="text-secondary">Dominante (91% en proyectos)</span>
+                            </div>
+                            <div class="w-full bg-border rounded-full h-2.5">
+                                <div class="bg-[#4F5D95] h-2.5 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+
+                        <!-- JavaScript -->
+                        <div>
+                            <div class="flex justify-between mb-1 text-sm">
+                                <span class="text-white font-medium"><i class="fab fa-js text-yellow-400 mr-2"></i>JavaScript</span>
+                                <span class="text-secondary">Muy frecuente (47% avg)</span>
+                            </div>
+                            <div class="w-full bg-border rounded-full h-2.5">
+                                <div class="bg-[#f1e05a] h-2.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+
+                        <!-- HTML -->
+                        <div>
+                            <div class="flex justify-between mb-1 text-sm">
+                                <span class="text-white font-medium"><i class="fab fa-html5 text-orange-500 mr-2"></i>HTML5</span>
+                                <span class="text-secondary">Base (89% en maquetación)</span>
+                            </div>
+                            <div class="w-full bg-border rounded-full h-2.5">
+                                <div class="bg-[#e34c26] h-2.5 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- CSS -->
+                        <div>
+                            <div class="flex justify-between mb-1 text-sm">
+                                <span class="text-white font-medium"><i class="fab fa-css3-alt text-blue-500 mr-2"></i>CSS</span>
+                                <span class="text-secondary">Intermedio</span>
+                            </div>
+                            <div class="w-full bg-border rounded-full h-2.5">
+                                <div class="bg-[#563d7c] h-2.5 rounded-full" style="width: 40%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Python/Otros -->
+                        <div>
+                            <div class="flex justify-between mb-1 text-sm">
+                                <span class="text-white font-medium"><i class="fab fa-python text-blue-300 mr-2"></i>Python</span>
+                                <span class="text-secondary">Uso específico (13.9%)</span>
+                            </div>
+                            <div class="w-full bg-border rounded-full h-2.5">
+                                <div class="bg-[#3572A5] h-2.5 rounded-full" style="width: 25%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Herramientas y Soft Skills -->
+                <div class="fade-in">
+                    <h3 class="text-lg font-semibold text-white mb-6 border-b border-border pb-2">Herramientas y Tecnologías</h3>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-card border border-border p-3 rounded text-center hover:border-teal-400 transition cursor-default">
+                            <i class="fas fa-microchip text-teal-400 text-xl mb-2 block"></i>
+                            <span class="text-sm text-white">Arduino</span>
+                        </div>
+                        <div class="bg-card border border-border p-3 rounded text-center hover:border-yellow-400 transition cursor-default">
+                            <i class="fab fa-linux text-yellow-400 text-xl mb-2 block"></i>
+                            <span class="text-sm text-white">Linux / Bash</span>
+                        </div>
+                        <div class="bg-card border border-border p-3 rounded text-center hover:border-blue-600 transition cursor-default">
+                            <i class="fas fa-network-wired text-blue-600 text-xl mb-2 block"></i>
+                            <span class="text-sm text-white">Redes (CCNA)</span>
+                        </div>
+                        <div class="bg-card border border-border p-3 rounded text-center hover:border-green-400 transition cursor-default">
+                            <i class="fas fa-shield-alt text-green-400 text-xl mb-2 block"></i>
+                            <span class="text-sm text-white">Ciberseguridad</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-semibold text-white mb-4 mt-8 border-b border-border pb-2">Competencias Destacadas</h3>
+                    <div class="space-y-3">
+                        <!-- Comunicación y Liderazgo -->
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all group">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium text-sm">Comunicación y Liderazgo</h4>
+                                <p class="text-xs text-secondary">Facilidad de palabra, trabajo en equipo y liderazgo.</p>
+                            </div>
+                        </div>
+
+                        <!-- Manejo de Situaciones -->
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all group">
+                            <div class="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors">
+                                <i class="fas fa-fire-extinguisher"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium text-sm">Manejo de Situaciones</h4>
+                                <p class="text-xs text-secondary">Resolución de problemas y trabajo bajo estrés.</p>
+                            </div>
+                        </div>
+
+                        <!-- Apps Móviles -->
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all group">
+                            <div class="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium text-sm">Desarrollo de Apps Móviles</h4>
+                                <p class="text-xs text-secondary">Experiencia en programación y desarrollo móvil.</p>
+                            </div>
+                        </div>
+
+                        <!-- Inglés -->
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all group">
+                            <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium text-sm">Inglés Intermedio</h4>
+                                <p class="text-xs text-secondary">Comunicación técnica y profesional.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICACIONES Y EDUCACIÓN -->
+    <section id="certificaciones" class="py-16">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold text-white mb-10 flex items-center gap-3">
+                <i class="fas fa-certificate text-primary"></i> Educación y Certificaciones
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Educación Formal -->
+                <div class="space-y-6 fade-in">
+                    <h3 class="text-xl font-semibold text-white border-b border-border pb-2">Formación Académica</h3>
+                    
+                    <div class="bg-card p-6 rounded-lg border border-border hover:border-primary transition-colors">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-white text-lg">Ingeniería en Sistemas Computacionales</h4>
+                            <span class="text-xs bg-primary/20 text-primary px-2 py-1 rounded border border-primary/30">En Curso</span>
+                        </div>
+                        <p class="text-secondary">Instituto Tecnológico Superior de Nuevo Casas Grandes</p>
+                        <p class="text-sm text-secondary/70 mt-1">2022 - Presente</p>
+                    </div>
+
+                    <div class="bg-card p-6 rounded-lg border border-border hover:border-border transition-colors">
+                        <h4 class="font-bold text-white text-lg">Arquitectura y Urbanismo</h4>
+                        <p class="text-secondary">Universidad Privada del Norte</p>
+                        <p class="text-sm text-secondary/70 mt-1">2021 (Incompleto)</p>
+                    </div>
+                </div>
+
+                <!-- Certificaciones (Datos LinkedIn/CV) -->
+                <div class="space-y-4 fade-in max-h-[800px] overflow-y-auto pr-2 custom-scrollbar">
+                    <h3 class="text-xl font-semibold text-white border-b border-border pb-2 sticky top-0 bg-dark/95 backdrop-blur z-10">Licencias y Certificaciones</h3>
+
+                    <!-- CCNA -->
+                    <div class="flex gap-4 p-4 rounded-lg bg-card border border-border hover:bg-dark transition-colors">
+                        <div class="w-12 h-12 bg-white rounded flex items-center justify-center shrink-0">
+                            <i class="fas fa-network-wired text-2xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm md:text-base">CCNA: Introduction to Networks</h4>
+                            <p class="text-secondary text-xs md:text-sm">Cisco</p>
+                            <p class="text-xs text-secondary/60 mt-1">Expedición: abr 2025</p>
+                        </div>
+                    </div>
+
+                    <!-- Google Ciberseguridad -->
+                    <div class="flex gap-4 p-4 rounded-lg bg-card border border-border hover:bg-dark transition-colors">
+                        <div class="w-12 h-12 bg-white rounded flex items-center justify-center shrink-0">
+                            <i class="fab fa-google text-2xl text-red-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm md:text-base">Ciberseguridad de Google</h4>
+                            <p class="text-secondary text-xs md:text-sm">Google</p>
+                            <p class="text-xs text-secondary/60 mt-1">Expedición: mar 2025 • ID: VCX2Q62DJDGY</p>
+                        </div>
+                    </div>
+
+                    <!-- Linux -->
+                    <div class="flex gap-4 p-4 rounded-lg bg-card border border-border hover:bg-dark transition-colors">
+                        <div class="w-12 h-12 bg-white rounded flex items-center justify-center shrink-0">
+                            <i class="fab fa-linux text-2xl text-black"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm md:text-base">NDG Linux Unhatched Spanish</h4>
+                            <p class="text-secondary text-xs md:text-sm">Cisco</p>
+                            <p class="text-xs text-secondary/60 mt-1">Expedición: ene 2025</p>
+                        </div>
+                    </div>
+
+                    <!-- Google IT Support -->
+                    <div class="flex gap-4 p-4 rounded-lg bg-card border border-border hover:bg-dark transition-colors">
+                        <div class="w-12 h-12 bg-white rounded flex items-center justify-center shrink-0">
+                            <i class="fab fa-google text-2xl text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm md:text-base">Soporte de Tecnologías de la Información</h4>
+                            <p class="text-secondary text-xs md:text-sm">Google</p>
+                            <p class="text-xs text-secondary/60 mt-1">Expedición: dic 2023 • ID: V6YF8WFDBHAA</p>
+                        </div>
+                    </div>
+
+                    <!-- Oxford -->
+                    <div class="flex gap-4 p-4 rounded-lg bg-card border border-border hover:bg-dark transition-colors">
+                        <div class="w-12 h-12 bg-white rounded flex items-center justify-center shrink-0">
+                            <i class="fas fa-graduation-cap text-2xl text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm md:text-base">Oxford Placement Test</h4>
+                            <p class="text-secondary text-xs md:text-sm">Oxford University Press</p>
+                            <p class="text-xs text-secondary/60 mt-1">Expedición: ene 2022</p>
+                        </div>
+                    </div>
+
+                    <!-- Google Apps -->
+                    <div class="flex gap-4 p-4 rounded-lg bg-card border border-border hover:bg-dark transition-colors">
+                        <div class="w-12 h-12 bg-white rounded flex items-center justify-center shrink-0">
+                            <i class="fas fa-mobile-alt text-2xl text-green-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm md:text-base">Desarrollo de Apps Móviles</h4>
+                            <p class="text-secondary text-xs md:text-sm">Google Actívate</p>
+                            <p class="text-xs text-secondary/60 mt-1">Expedición: jun 2020 • ID: D6E EM7 W4D</p>
+                        </div>
+                    </div>
+
+                    <!-- Michigan -->
+                    <div class="flex gap-4 p-4 rounded-lg bg-card border border-border hover:bg-dark transition-colors">
+                        <div class="w-12 h-12 bg-white rounded flex items-center justify-center shrink-0">
+                            <i class="fas fa-language text-2xl text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm md:text-base">Michigan English Test (MET)</h4>
+                            <p class="text-secondary text-xs md:text-sm">ICPNA</p>
+                            <p class="text-xs text-secondary/60 mt-1">Expedición: ene 2018</p>
+                        </div>
+                    </div>
+
+                    <!-- Photoshop -->
+                    <div class="flex gap-4 p-4 rounded-lg bg-card border border-border hover:bg-dark transition-colors">
+                        <div class="w-12 h-12 bg-[#001e36] rounded flex items-center justify-center shrink-0">
+                            <span class="text-blue-400 font-bold text-xs">Ps</span>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm md:text-base">Photoshop</h4>
+                            <p class="text-secondary text-xs md:text-sm">CIBERTEC</p>
+                            <p class="text-xs text-secondary/60 mt-1">Expedición: ene 2014</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contacto" class="py-12 bg-dark border-t border-border text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-bold text-white mb-6">Contáctame</h2>
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="mailto:renzocaycho@outlook.es" class="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all text-secondary text-xl">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/renzo-caycho-647525150" target="_blank" class="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:border-[#0a66c2] hover:text-[#0a66c2] transition-all text-secondary text-xl">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/zekkencito" target="_blank" class="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:border-[#2da44e] hover:text-[#2da44e] transition-all text-secondary text-xl">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <p class="text-xs text-secondary">&copy; 2024 Renzo Caycho.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts de Funcionalidad -->
+    <script>
+        // Menú Móvil
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+        
+        // Animaciones al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
