@@ -36,6 +36,14 @@
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
+        .cursor {
+            display: inline-block;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
@@ -96,8 +104,9 @@
                 
                 <!-- Intro Texto -->
                 <div class="text-center md:text-left">
-                    <h2 class="text-primary font-bold tracking-wide uppercase text-sm mb-2">Ingeniero en Sistemas en Formación</h2>
-                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Renzo Caycho</h1>
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
+                        <span id="typewriter"></span><span class="cursor">|</span>
+                    </h1>
                     <p class="text-lg text-secondary max-w-2xl mb-6">
                         Desarrollador enfocado en <strong>Páginas y Plataformas Web</strong>. Estudiante de Ingeniería en Sistemas Computacionales con conocimientos en Ciberseguridad, Programación Web, Inteligencia Artificial y todo lo que se pueda aprender. Combino habilidades técnicas con experiencia real en liderazgo de equipos y atención al usuario.
                     </p>
@@ -321,136 +330,152 @@
             </h2>
             <p class="text-secondary mb-8">Estadísticas basadas en el uso real en mis repositorios.</p>
             
-            <div class="grid md:grid-cols-2 gap-12">
-                <!-- Columna Lenguajes (Barras estilo GitHub) -->
-                <div class="fade-in">
-                    <h3 class="text-lg font-semibold text-white mb-6 border-b border-border pb-2">Top Languages</h3>
+            <div class="fade-in">
+                <!-- Grid unificada de Lenguajes y Tecnologías -->
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
                     
-                    <div class="space-y-5">
-                        
-                        <!-- PHP -->
-                        <div>
-                            <div class="flex justify-between mb-1 text-sm">
-                                <span class="text-white font-medium"><i class="fab fa-php text-indigo-400 mr-2"></i>PHP / Blade</span>
-                                
-                            </div>
-                            <div class="w-full bg-border rounded-full h-2.5">
-                                <div class="bg-[#4F5D95] h-2.5 rounded-full" style="width: 92%"></div>
-                            </div>
-                        </div>
-
-                        <!-- JavaScript -->
-                        <div>
-                            <div class="flex justify-between mb-1 text-sm">
-                                <span class="text-white font-medium"><i class="fab fa-js text-yellow-400 mr-2"></i>JavaScript</span>
-                                
-                            </div>
-                            <div class="w-full bg-border rounded-full h-2.5">
-                                <div class="bg-[#f1e05a] h-2.5 rounded-full" style="width: 75%"></div>
-                            </div>
-                        </div>
-
-                        <!-- HTML -->
-                        <div>
-                            <div class="flex justify-between mb-1 text-sm">
-                                <span class="text-white font-medium"><i class="fab fa-html5 text-orange-500 mr-2"></i>HTML5</span>
-                                
-                            </div>
-                            <div class="w-full bg-border rounded-full h-2.5">
-                                <div class="bg-[#e34c26] h-2.5 rounded-full" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        
-                        <!-- CSS -->
-                        <div>
-                            <div class="flex justify-between mb-1 text-sm">
-                                <span class="text-white font-medium"><i class="fab fa-css3-alt text-blue-500 mr-2"></i>CSS</span>
-                                
-                            </div>
-                            <div class="w-full bg-border rounded-full h-2.5">
-                                <div class="bg-[#563d7c] h-2.5 rounded-full" style="width: 40%"></div>
-                            </div>
-                        </div>
-
-                        <!-- Python/Otros -->
-                        <div>
-                            <div class="flex justify-between mb-1 text-sm">
-                                <span class="text-white font-medium"><i class="fab fa-python text-blue-300 mr-2"></i>Python</span>
-                            </div>
-                            <div class="w-full bg-border rounded-full h-2.5">
-                                <div class="bg-[#3572A5] h-2.5 rounded-full" style="width: 25%"></div>
-                            </div>
-                        </div>
+                    <!-- PHP -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-indigo-400 transition group">
+                        <i class="fab fa-php text-indigo-400 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">PHP</span>
                     </div>
+
+                    <!-- JavaScript -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-yellow-400 transition group">
+                        <i class="fab fa-js text-yellow-400 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">JavaScript</span>
+                    </div>
+
+                    <!-- HTML5 -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-orange-500 transition group">
+                        <i class="fab fa-html5 text-orange-500 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">HTML5</span>
+                    </div>
+
+                    <!-- CSS3 -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-blue-500 transition group">
+                        <i class="fab fa-css3-alt text-blue-500 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">CSS3</span>
+                    </div>
+
+                    <!-- Python -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-blue-300 transition group">
+                        <i class="fab fa-python text-blue-300 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">Python</span>
+                    </div>
+
+                    <!-- Arduino -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-teal-400 transition group">
+                        <i class="fas fa-microchip text-teal-400 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">Arduino</span>
+                    </div>
+
+                    <!-- Linux -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-yellow-400 transition group">
+                        <i class="fab fa-linux text-yellow-400 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">Linux / Bash</span>
+                    </div>
+
+                    <!-- Redes -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-blue-600 transition group">
+                        <i class="fas fa-network-wired text-blue-600 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">Redes (CCNA)</span>
+                    </div>
+
+                    <!-- Ciberseguridad -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-green-400 transition group">
+                        <i class="fas fa-shield-alt text-green-400 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">Ciberseguridad</span>
+                    </div>
+
+                    <!-- Laravel -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-red-600 transition group">
+                        <i class="fab fa-laravel text-red-600 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">Laravel</span>
+                    </div>
+
+                    <!-- React -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-blue-400 transition group">
+                        <i class="fab fa-react text-blue-400 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">React</span>
+                    </div>
+
+                    <!-- MySQL -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-blue-500 transition group">
+                        <i class="fas fa-database text-blue-500 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">MySQL</span>
+                    </div>
+
+                    <!-- SQL Server -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-red-500 transition group">
+                        <i class="fas fa-server text-red-500 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">SQL Server</span>
+                    </div>
+
+                    <!-- Bootstrap -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-purple-600 transition group">
+                        <i class="fab fa-bootstrap text-purple-600 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">Bootstrap</span>
+                    </div>
+
+                    <!-- n8n -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-pink-500 transition group">
+                        <i class="fas fa-project-diagram text-pink-500 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">n8n</span>
+                    </div>
+
+                    <!-- Terminal -->
+                    <div class="bg-card border border-border p-6 rounded-lg text-center hover:border-gray-400 transition group">
+                        <i class="fas fa-terminal text-gray-400 text-4xl mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <span class="text-white font-medium">Terminal</span>
+                    </div>
+
                 </div>
 
-                <!-- Columna Herramientas y Soft Skills -->
-                <div class="fade-in">
-                    <h3 class="text-lg font-semibold text-white mb-6 border-b border-border pb-2">Herramientas y Tecnologías</h3>
-                    
-                    <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="bg-card border border-border p-3 rounded text-center hover:border-teal-400 transition cursor-default">
-                            <i class="fas fa-microchip text-teal-400 text-xl mb-2 block"></i>
-                            <span class="text-sm text-white">Arduino</span>
+                <!-- Competencias Destacadas -->
+                <h3 class="text-2xl font-bold text-white mb-6 border-b border-border pb-2">Competencias Destacadas</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <!-- Comunicación y Liderazgo -->
+                    <div class="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all group">
+                        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                            <i class="fas fa-comments"></i>
                         </div>
-                        <div class="bg-card border border-border p-3 rounded text-center hover:border-yellow-400 transition cursor-default">
-                            <i class="fab fa-linux text-yellow-400 text-xl mb-2 block"></i>
-                            <span class="text-sm text-white">Linux / Bash</span>
-                        </div>
-                        <div class="bg-card border border-border p-3 rounded text-center hover:border-blue-600 transition cursor-default">
-                            <i class="fas fa-network-wired text-blue-600 text-xl mb-2 block"></i>
-                            <span class="text-sm text-white">Redes (CCNA)</span>
-                        </div>
-                        <div class="bg-card border border-border p-3 rounded text-center hover:border-green-400 transition cursor-default">
-                            <i class="fas fa-shield-alt text-green-400 text-xl mb-2 block"></i>
-                            <span class="text-sm text-white">Ciberseguridad</span>
+                        <div>
+                            <h4 class="text-white font-medium text-sm">Comunicación y Liderazgo</h4>
+                            <p class="text-xs text-secondary">Facilidad de palabra, trabajo en equipo y liderazgo.</p>
                         </div>
                     </div>
 
-                    <h3 class="text-lg font-semibold text-white mb-4 mt-8 border-b border-border pb-2">Competencias Destacadas</h3>
-                    <div class="space-y-3">
-                        <!-- Comunicación y Liderazgo -->
-                        <div class="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all group">
-                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                                <i class="fas fa-comments"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-medium text-sm">Comunicación y Liderazgo</h4>
-                                <p class="text-xs text-secondary">Facilidad de palabra, trabajo en equipo y liderazgo.</p>
-                            </div>
+                    <!-- Manejo de Situaciones -->
+                    <div class="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all group">
+                        <div class="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors">
+                            <i class="fas fa-fire-extinguisher"></i>
                         </div>
-
-                        <!-- Manejo de Situaciones -->
-                        <div class="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all group">
-                            <div class="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors">
-                                <i class="fas fa-fire-extinguisher"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-medium text-sm">Manejo de Situaciones</h4>
-                                <p class="text-xs text-secondary">Resolución de problemas y trabajo bajo estrés.</p>
-                            </div>
+                        <div>
+                            <h4 class="text-white font-medium text-sm">Manejo de Situaciones</h4>
+                            <p class="text-xs text-secondary">Resolución de problemas y trabajo bajo estrés.</p>
                         </div>
+                    </div>
 
-                        <!-- Apps Móviles -->
-                        <div class="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all group">
-                            <div class="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors">
-                                <i class="fas fa-mobile-alt"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-medium text-sm">Desarrollo de Apps Móviles</h4>
-                                <p class="text-xs text-secondary">Experiencia en programación y desarrollo móvil.</p>
-                            </div>
+                    <!-- Apps Móviles -->
+                    <div class="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all group">
+                        <div class="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                            <i class="fas fa-mobile-alt"></i>
                         </div>
+                        <div>
+                            <h4 class="text-white font-medium text-sm">Desarrollo de Apps Móviles</h4>
+                            <p class="text-xs text-secondary">Experiencia en programación y desarrollo móvil.</p>
+                        </div>
+                    </div>
 
-                        <!-- Inglés -->
-                        <div class="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all group">
-                            <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors">
-                                <i class="fas fa-language"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-medium text-sm">Inglés Intermedio</h4>
-                                <p class="text-xs text-secondary">Comunicación técnica y profesional.</p>
-                            </div>
+                    <!-- Inglés -->
+                    <div class="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all group">
+                        <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium text-sm">Inglés Intermedio</h4>
+                            <p class="text-xs text-secondary">Comunicación técnica y profesional.</p>
                         </div>
                     </div>
                 </div>
@@ -626,6 +651,37 @@
         }, { threshold: 0.1 });
         
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Typewriter Effect
+        const textElement = document.getElementById('typewriter');
+        const texts = ['Renzo Caycho', 'Developer', 'Software Engineer'];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentText = texts[textIndex];
+            if (isDeleting) {
+                textElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                setTimeout(type, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? 100 : 200);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', type);
     </script>
 </body>
 </html>
