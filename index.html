@@ -81,31 +81,17 @@
 
         * { scrollbar-width: thin; scrollbar-color: #e50012 #0a0a0a; }
 
-        /* Transición base para MÓVIL (Recta y encajada) */
         #slash-screen {
-            position: fixed; top: 0; left: -100%; width: 100%; height: 100%;
-            background-color: #0a0a0a; z-index: 9999;
+            position: fixed; top: 0; left: -150%; width: 150%; height: 100%;
+            background-color: #0a0a0a; z-index: 9999; transform: skewX(-20deg);
             transition: left 0.4s cubic-bezier(0.8, 0, 0.2, 1);
             display: flex; align-items: center; justify-content: center;
         }
-        #slash-screen.active { left: 0%; }
+        #slash-screen.active { left: -20%; }
         .slash-text {
-            color: #e50012; font-family: 'Anton', sans-serif; font-size: 4rem;
-            -webkit-text-stroke: 2px #fff;
+            color: #e50012; font-family: 'Anton', sans-serif; font-size: 6rem;
+            transform: skewX(20deg); -webkit-text-stroke: 2px #fff;
             opacity: 0.8; letter-spacing: 0.2em; text-transform: uppercase;
-            text-align: center;
-        }
-
-        /* Transición inclinada P5 SOLO para PC (Desktop) */
-        @media (min-width: 768px) {
-            #slash-screen {
-                left: -150%; width: 150%; transform: skewX(-20deg);
-            }
-            #slash-screen.active { left: -20%; }
-            .slash-text {
-                font-size: 6rem;
-                transform: skewX(20deg);
-            }
         }
 
         .view-hidden { display: none !important; }
@@ -744,8 +730,9 @@
                 data: "Datos", location: "Ubicación", status: "Estado Actual", status_desc: "Disponible para: prácticas, trabajo, freelance o colaboración remota.",
                 languages: "Idiomas", languages_desc: "Español, Inglés Intermedio", download_cv: "Descargar CV",
                 
-                target_title: "Objetivo Principal",
-                target_desc: "Aportar valor a través de soluciones web eficientes y seguras, fusionando mi pasión por el desarrollo con un aprendizaje continuo en ciberseguridad e IA.",
+                interests_title: "Intereses",
+                int1: "Desarrollo Móvil", int2: "Ciberseguridad", int3: "IA Aplicada", int4: "Automatización", int5: "Programación Web",
+                int6: "Diseño UI/UX", int7: "Arquitectura Cloud", int8: "Desarrollo de Juegos", int9: "Internet de las Cosas (IoT)", int10: "Análisis de Datos",
 
                 exp_title1: "Experiencia", exp_title2: "Laboral",
                 job1_role: "Limpieza y Atención", job1_desc: "Encargado de limpieza general y organización.", job1_b1: "Paciencia, organización y atención al detalle.", job1_b2: "Mantenimiento de estándares de calidad.",
@@ -783,9 +770,10 @@
                 about_desc: "I am a developer focused on <span class='bg-p5black text-white px-2 py-0.5'>modern web pages and platforms</span>. Computer Systems Engineering student with solid knowledge in Cybersecurity, Web Programming, and AI. I combine technical skills with practical experience in team leadership.",
                 data: "Data Log", location: "Location", status: "Current Status", status_desc: "Available for: internships, work, freelance, or remote collaboration.",
                 languages: "Languages", languages_desc: "Spanish, Intermediate English", download_cv: "Download Resume",
-
-                target_title: "Main Objective",
-                target_desc: "Add value through efficient and secure web solutions, merging my passion for development with continuous learning in cybersecurity and AI.",
+                
+                interests_title: "Interests",
+                int1: "Mobile Dev", int2: "Cybersecurity", int3: "Applied AI", int4: "Automation", int5: "Web Programming",
+                int6: "UI/UX Design", int7: "Cloud Architecture", int8: "Game Development", int9: "Internet of Things (IoT)", int10: "Data Analysis",
 
                 exp_title1: "Work", exp_title2: "Experience",
                 job1_role: "Cleaning & Service", job1_desc: "In charge of general cleaning and organization.", job1_b1: "Patience, organization and attention to detail.", job1_b2: "Maintenance of quality standards.",
