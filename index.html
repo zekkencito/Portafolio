@@ -7,7 +7,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Fuentes Google: Anton para títulos (estilo P5), Outfit para lectura -->
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
     <!-- Iconos (FontAwesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -27,15 +27,21 @@
                         dark: '#111',
                     },
                     boxShadow: {
-                        'solid': '6px 6px 0px 0px #000000',
-                        'solid-red': '6px 6px 0px 0px #e50012',
-                        'solid-white': '6px 6px 0px 0px #f0f0f0',
-                        'solid-yellow': '6px 6px 0px 0px #ffe600',
-                        'solid-sm': '3px 3px 0px 0px #000000',
+                        'solid': '4px 4px 0px 0px #000000',
+                        'solid-red': '4px 4px 0px 0px #e50012',
+                        'solid-white': '4px 4px 0px 0px #f0f0f0',
+                        'solid-yellow': '4px 4px 0px 0px #ffe600',
+                        'solid-sm': '2px 2px 0px 0px #000000',
                     },
                     animation: {
                         'spin-slow': 'spin 15s linear infinite',
                         'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fill-bar': 'fillBar 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        fillBar: {
+                            '0%': { width: '0%' },
+                        }
                     }
                 }
             }
@@ -56,15 +62,24 @@
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
             overflow-x: hidden;
+            /* Permite scroll en móvil */
+            overflow-y: auto; 
+        }
+
+        /* Bloquea estrictamente el scroll en PC */
+        @media (min-width: 768px) {
+            body { overflow: hidden; }
         }
 
         .clip-slant { clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%); }
         .clip-jagged { clip-path: polygon(0% 5%, 5% 0%, 95% 0%, 100% 5%, 98% 95%, 100% 100%, 5% 98%, 0% 100%); }
         .clip-star { clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
 
-        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #0a0a0a; border-left: 2px solid #fff; }
         ::-webkit-scrollbar-thumb { background: #e50012; border: 2px solid #0a0a0a; }
+
+        * { scrollbar-width: thin; scrollbar-color: #e50012 #0a0a0a; }
 
         #slash-screen {
             position: fixed; top: 0; left: -150%; width: 150%; height: 100%;
@@ -74,165 +89,182 @@
         }
         #slash-screen.active { left: -20%; }
         .slash-text {
-            color: #e50012; font-family: 'Anton', sans-serif; font-size: 8rem;
+            color: #e50012; font-family: 'Anton', sans-serif; font-size: 6rem;
             transform: skewX(20deg); -webkit-text-stroke: 2px #fff;
             opacity: 0.8; letter-spacing: 0.2em; text-transform: uppercase;
         }
 
-        .view-hidden { display: none; }
-        .view-active { display: block; animation: slamIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .view-hidden { display: none !important; }
+        .view-active { display: flex; animation: slamIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes slamIn {
-            0% { transform: scale(1.1) rotate(1deg); opacity: 0; filter: blur(4px); }
+            0% { transform: scale(1.02) rotate(1deg); opacity: 0; filter: blur(1px); }
             100% { transform: scale(1) rotate(0deg); opacity: 1; filter: blur(0); }
         }
 
         .p5-nav-btn {
-            position: relative; transform: skewX(-10deg); transition: all 0.2s ease; border: 3px solid transparent;
+            position: relative; transform: skewX(-10deg); transition: all 0.2s ease; border: 2px solid transparent;
         }
         .p5-nav-btn span { display: block; transform: skewX(10deg); }
-        .p5-nav-btn:hover { background-color: #0a0a0a; color: #ffe600; transform: skewX(-10deg) scale(1.05) translateX(10px); border: 3px solid #ffe600; box-shadow: 6px 6px 0px 0px #e50012; }
-        .p5-nav-btn.active { background-color: #e50012; color: #fff; border: 3px solid #0a0a0a; box-shadow: 6px 6px 0px 0px #ffe600; transform: skewX(-10deg) scale(1.1) translateX(15px); z-index: 10; }
+        .p5-nav-btn:hover { background-color: #0a0a0a; color: #ffe600; transform: skewX(-10deg) scale(1.02) translateX(5px); border: 2px solid #ffe600; box-shadow: 3px 3px 0px 0px #e50012; }
+        .p5-nav-btn.active { background-color: #e50012; color: #fff; border: 2px solid #0a0a0a; box-shadow: 3px 3px 0px 0px #ffe600; transform: skewX(-10deg) scale(1.05) translateX(10px); z-index: 10; }
         
         .text-stroke-black { -webkit-text-stroke: 1px #000; color: white; }
-        .text-stroke-white { -webkit-text-stroke: 2px #fff; color: #e50012; }
-
+        
         .card-p5 { transition: transform 0.2s; }
-        .card-p5:hover { transform: translateY(-4px); z-index: 10; }
+        .card-p5:hover { transform: translateY(-2px); z-index: 10; }
         
         .bg-tape { background: repeating-linear-gradient(-45deg, #ffe600, #ffe600 20px, #000000 20px, #000000 40px); }
     </style>
 </head>
 <body class="text-p5black selection:bg-p5yellow selection:text-black">
 
-    <!-- Transición de Pantalla (El Slash) -->
+    <!-- Transición de Pantalla -->
     <div id="slash-screen">
         <div class="slash-text">CARGANDO</div>
     </div>
 
-    <div class="min-h-screen flex flex-col md:flex-row max-w-7xl mx-auto bg-p5white border-x-4 border-p5black shadow-2xl relative overflow-hidden">
+    <!-- Contenedor adaptativo principal (Pantalla Única Fija en PC) -->
+    <div class="min-h-screen md:h-screen w-full max-w-7xl mx-auto flex flex-col md:flex-row bg-p5white border-x-4 border-p5black shadow-2xl relative overflow-hidden">
         
-        <!-- Elementos decorativos de fondo -->
-        <div class="absolute top-0 right-0 w-96 h-96 bg-p5red rounded-full mix-blend-multiply opacity-20 -mr-20 -mt-20 blur-2xl pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 w-full h-8 bg-tape z-50"></div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-p5red rounded-full mix-blend-multiply opacity-20 -mr-20 -mt-20 blur-2xl pointer-events-none hidden md:block"></div>
+        <div class="absolute bottom-0 left-0 w-full h-4 bg-tape z-50"></div>
 
         <!-- SIDEBAR / MENÚ -->
-        <aside class="w-full md:w-80 bg-p5white border-b-4 md:border-b-0 md:border-r-4 border-p5black relative z-40 flex flex-col pt-8 md:pt-0">
+        <aside class="w-full md:w-72 bg-p5white border-b-4 md:border-b-0 md:border-r-4 border-p5black relative z-40 flex flex-col shrink-0 md:h-full">
             
-            <!-- Perfil -->
-            <div class="p-6 bg-p5black text-p5white border-b-4 border-p5red relative overflow-hidden">
+            <div class="p-4 bg-p5black text-p5white border-b-4 border-p5red relative overflow-hidden shrink-0">
                 
-                <!-- Botón de Cambio de Idioma (Switch Integrado) -->
-                <div class="absolute top-4 right-4 z-20 flex bg-p5white border-2 border-black transform -skew-x-12 shadow-solid-sm cursor-pointer" id="lang-toggle" title="Cambiar Idioma / Change Language">
-                    <div class="px-3 py-1 font-display text-sm transition-colors bg-p5yellow text-black border-r-2 border-black" id="btn-es"><span class="transform skew-x-12 block">ES</span></div>
-                    <div class="px-3 py-1 font-display text-sm transition-colors bg-p5white text-gray-500 hover:text-black" id="btn-en"><span class="transform skew-x-12 block">EN</span></div>
+                <!-- Switch Idioma -->
+                <div class="absolute top-3 right-3 z-20 flex bg-p5white border-2 border-black transform -skew-x-12 shadow-solid-sm cursor-pointer" id="lang-toggle" title="Cambiar Idioma / Change Language">
+                    <div class="px-2 py-0.5 font-display text-xs transition-colors bg-p5yellow text-black border-r-2 border-black" id="btn-es"><span class="transform skew-x-12 block">ES</span></div>
+                    <div class="px-2 py-0.5 font-display text-xs transition-colors bg-p5white text-gray-500 hover:text-black" id="btn-en"><span class="transform skew-x-12 block">EN</span></div>
                 </div>
 
-                <div class="absolute -right-8 -top-8 w-32 h-32 bg-p5red clip-star opacity-20 animate-spin-slow"></div>
+                <div class="absolute -right-8 -top-8 w-24 h-24 bg-p5red clip-star opacity-20 animate-spin-slow"></div>
                 
-                <div class="relative z-10 flex md:flex-col items-center gap-4 mt-6 md:mt-0">
-                    <div class="w-24 h-24 md:w-40 md:h-40 relative transform rotate-3 hover:rotate-0 transition-transform cursor-pointer group">
-                        <div class="absolute inset-0 bg-p5yellow clip-jagged translate-x-2 translate-y-2 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform"></div>
-                        <img src="img/profile.jpeg" alt="Renzo Caycho" class="relative w-full h-full object-cover clip-jagged border-4 border-p5white grayscale contrast-125 group-hover:grayscale-0 transition-all">
-                        <div class="absolute -bottom-2 -right-2 bg-p5red text-white text-xs font-display px-2 py-1 transform rotate-12 border-2 border-p5white">DEV</div>
+                <div class="relative z-10 flex md:flex-col items-center gap-3 mt-4 md:mt-0">
+                    <div class="w-20 h-20 md:w-28 md:h-28 relative transform rotate-3 hover:rotate-0 transition-transform cursor-pointer group mt-2">
+                        <div class="absolute inset-0 bg-p5yellow clip-jagged translate-x-1 translate-y-1 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform"></div>
+                        <img src="img/profile.jpeg" alt="Renzo Caycho" class="relative w-full h-full object-cover clip-jagged border-2 border-p5white contrast-125 group-hover:grayscale-0 transition-all">
+                        <div class="absolute -bottom-2 -right-2 bg-p5red text-white text-[10px] font-display px-2 py-0.5 transform rotate-12 border border-p5white">DEV</div>
                     </div>
                     
-                    <div class="mt-2 text-left md:text-center">
-                        <h1 class="text-4xl md:text-5xl font-display uppercase tracking-wider text-white" style="-webkit-text-stroke: 1px #e50012;">Renzo<br>Caycho</h1>
+                    <div class="mt-1 text-left md:text-center">
+                        <h1 class="text-3xl md:text-4xl font-display uppercase tracking-wider text-white leading-none" style="-webkit-text-stroke: 1px #e50012;">Renzo<br>Caycho</h1>
                         <div class="inline-block bg-p5yellow text-black font-bold px-3 py-1 transform -skew-x-12 mt-2 border-2 border-black">
-                            <span class="block transform skew-x-12 text-sm uppercase" data-i18n="role">Desarrollador Web</span>
+                            <span class="block transform skew-x-12 text-xs md:text-sm uppercase" data-i18n="role">Desarrollador Web</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Redes / Contacto -->
-                <div class="flex flex-wrap md:flex-col gap-2 mt-6">
-                    <a href="https://www.linkedin.com/in/renzo-caycho-647525150" target="_blank" class="flex-1 md:flex-none flex items-center gap-3 bg-p5white text-p5black px-4 py-2 font-display uppercase hover:bg-p5red hover:text-white border-2 border-transparent hover:border-white transition-colors transform skew-x-6">
-                        <i class="fab fa-linkedin transform -skew-x-6 text-xl"></i> 
-                        <span class="transform -skew-x-6 tracking-wide">LinkedIn</span>
+                <div class="flex flex-wrap md:flex-col gap-2 mt-5">
+                    <a href="https://www.linkedin.com/in/renzo-caycho-647525150" target="_blank" class="flex-1 md:flex-none flex items-center justify-center md:justify-start gap-3 bg-p5white text-p5black px-3 py-2 font-display text-sm md:text-base uppercase hover:bg-p5red hover:text-white border-2 border-transparent hover:border-white transition-colors transform skew-x-6">
+                        <i class="fab fa-linkedin transform -skew-x-6"></i> <span class="transform -skew-x-6">LinkedIn</span>
                     </a>
-                    <a href="https://github.com/zekkencito" target="_blank" class="flex-1 md:flex-none flex items-center gap-3 bg-p5white text-p5black px-4 py-2 font-display uppercase hover:bg-p5yellow hover:text-black border-2 border-transparent hover:border-black transition-colors transform -skew-x-6">
-                        <i class="fab fa-github transform skew-x-6 text-xl"></i> 
-                        <span class="transform skew-x-6 tracking-wide">GitHub</span>
+                    <a href="https://github.com/zekkencito" target="_blank" class="flex-1 md:flex-none flex items-center justify-center md:justify-start gap-3 bg-p5white text-p5black px-3 py-2 font-display text-sm md:text-base uppercase hover:bg-p5yellow hover:text-black border-2 border-transparent hover:border-black transition-colors transform -skew-x-6">
+                        <i class="fab fa-github transform skew-x-6"></i> <span class="transform skew-x-6">GitHub</span>
                     </a>
-                    <a href="mailto:renzocaycho@outlook.es" class="flex-1 md:flex-none flex items-center gap-3 bg-p5white text-p5black px-4 py-2 font-display uppercase hover:bg-black hover:text-white border-2 border-transparent hover:border-p5red transition-colors transform skew-x-6">
-                        <i class="fas fa-envelope transform -skew-x-6 text-xl"></i> 
-                        <span class="transform -skew-x-6 tracking-wide" data-i18n="contact">Contacto</span>
+                    <a href="mailto:renzocaycho@outlook.es" class="flex-1 md:flex-none flex items-center justify-center md:justify-start gap-3 bg-p5white text-p5black px-3 py-2 font-display text-sm md:text-base uppercase hover:bg-black hover:text-white border-2 border-transparent hover:border-p5red transition-colors transform skew-x-6">
+                        <i class="fas fa-envelope transform -skew-x-6"></i> <span class="transform -skew-x-6" data-i18n="contact">Contacto</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Navegación -->
-            <nav class="p-6 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDBMOCA4Wk04IDBMMCA4WiIgc3Ryb2tlPSIjZWVlIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+')] flex-1">
-                <div class="flex md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-4 md:pb-0">
-                    <button class="tab-btn p5-nav-btn active bg-p5white text-p5black border-3 border-p5black font-display text-2xl uppercase px-6 py-2 shadow-solid text-left whitespace-nowrap" data-tab="perfil" data-title-key="nav_profile">
-                        <span><i class="fas fa-user mr-2"></i> <span data-i18n="nav_profile">Perfil</span></span>
+            <!-- Botones de Navegación -->
+            <nav class="p-4 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDBMOCA4Wk04IDBMMCA4WiIgc3Ryb2tlPSIjZWVlIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+')] flex-1 flex flex-col justify-center">
+                <div class="flex flex-wrap md:flex-col gap-3 pb-2 md:pb-0">
+                    <button class="tab-btn p5-nav-btn active bg-p5white text-p5black border-2 border-p5black font-display text-lg md:text-2xl uppercase px-4 py-1.5 shadow-solid-sm text-left" data-tab="perfil" data-title-key="nav_profile">
+                        <span><i class="fas fa-user mr-2 text-sm md:text-base"></i> <span data-i18n="nav_profile">Perfil</span></span>
                     </button>
-                    <button class="tab-btn p5-nav-btn bg-p5white text-p5black border-3 border-p5black font-display text-2xl uppercase px-6 py-2 shadow-solid text-left whitespace-nowrap" data-tab="experiencia" data-title-key="nav_experience">
-                        <span><i class="fas fa-briefcase mr-2"></i> <span data-i18n="nav_experience">Experiencia</span></span>
+                    <button class="tab-btn p5-nav-btn bg-p5white text-p5black border-2 border-p5black font-display text-lg md:text-2xl uppercase px-4 py-1.5 shadow-solid-sm text-left" data-tab="experiencia" data-title-key="nav_experience">
+                        <span><i class="fas fa-briefcase mr-2 text-sm md:text-base"></i> <span data-i18n="nav_experience">Experiencia</span></span>
                     </button>
-                    <button class="tab-btn p5-nav-btn bg-p5white text-p5black border-3 border-p5black font-display text-2xl uppercase px-6 py-2 shadow-solid text-left whitespace-nowrap" data-tab="proyectos" data-title-key="nav_projects">
-                        <span><i class="fas fa-code-branch mr-2"></i> <span data-i18n="nav_projects">Proyectos</span></span>
+                    <button class="tab-btn p5-nav-btn bg-p5white text-p5black border-2 border-p5black font-display text-lg md:text-2xl uppercase px-4 py-1.5 shadow-solid-sm text-left" data-tab="proyectos" data-title-key="nav_projects">
+                        <span><i class="fas fa-code-branch mr-2 text-sm md:text-base"></i> <span data-i18n="nav_projects">Proyectos</span></span>
                     </button>
-                    <button class="tab-btn p5-nav-btn bg-p5white text-p5black border-3 border-p5black font-display text-2xl uppercase px-6 py-2 shadow-solid text-left whitespace-nowrap" data-tab="habilidades" data-title-key="nav_skills">
-                        <span><i class="fas fa-terminal mr-2"></i> <span data-i18n="nav_skills">Habilidades</span></span>
+                    <button class="tab-btn p5-nav-btn bg-p5white text-p5black border-2 border-p5black font-display text-lg md:text-xl uppercase px-4 py-1.5 shadow-solid-sm text-left" data-tab="habilidades" data-title-key="nav_skills">
+                        <span><i class="fas fa-terminal mr-2 text-sm md:text-base"></i> <span data-i18n="nav_skills">Habilidades</span></span>
                     </button>
-                    <button class="tab-btn p5-nav-btn bg-p5white text-p5black border-3 border-p5black font-display text-2xl uppercase px-6 py-2 shadow-solid text-left whitespace-nowrap" data-tab="certificaciones" data-title-key="nav_certs">
-                        <span><i class="fas fa-certificate mr-2"></i> <span data-i18n="nav_certs">Certificados</span></span>
+                    <button class="tab-btn p5-nav-btn bg-p5white text-p5black border-2 border-p5black font-display text-lg md:text-2xl uppercase px-4 py-1.5 shadow-solid-sm text-left" data-tab="certificaciones" data-title-key="nav_certs">
+                        <span><i class="fas fa-certificate mr-2 text-sm md:text-base"></i> <span data-i18n="nav_certs">Certificados</span></span>
                     </button>
                 </div>
             </nav>
         </aside>
 
         <!-- CONTENIDO PRINCIPAL -->
-        <main class="flex-1 relative bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNkZGRkZGQiLz48L3N2Zz4=')]">
+        <main class="flex-1 relative bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNkZGRkZGQiLz48L3N2Zz4=')] flex flex-col justify-start min-h-0">
             
-            <div class="h-full overflow-y-auto p-6 md:p-12 pb-20">
+            <div class="w-full h-full p-4 md:p-6 lg:p-8 flex flex-col min-h-0 pb-16">
 
                 <!-- VISTA: PERFIL -->
-                <section id="perfil-view" class="tab-content view-active">
-                    <div class="relative inline-block mb-10">
+                <section id="perfil-view" class="tab-content view-active h-full flex-col pb-4">
+                    <div class="relative inline-block mb-4 shrink-0 self-start">
                         <div class="absolute inset-0 bg-p5yellow transform -rotate-2 scale-105 border-4 border-p5black"></div>
-                        <h2 class="relative text-6xl md:text-8xl font-display uppercase text-p5red text-stroke-black bg-p5white border-4 border-p5black px-6 py-2 clip-jagged inline-block shadow-solid" data-i18n="nav_profile">
+                        <h2 class="relative text-5xl md:text-6xl lg:text-7xl font-display uppercase text-p5red text-stroke-black bg-p5white border-4 border-p5black px-6 py-1 clip-jagged inline-block shadow-solid-sm" data-i18n="nav_profile">
                             PERFIL
                         </h2>
                     </div>
 
-                    <div class="grid lg:grid-cols-2 gap-8">
-                        <div class="bg-p5white border-4 border-p5black p-6 relative shadow-solid-red card-p5">
-                            <div class="absolute -top-4 -right-4 bg-p5yellow border-4 border-p5black text-p5black font-display px-4 py-1 transform rotate-12 text-xl">INFO</div>
-                            <h3 class="font-display text-3xl uppercase mb-4 flex items-center gap-2 text-p5red">
+                    <!-- Bloque de Información -->
+                    <div class="grid lg:grid-cols-2 gap-4 lg:gap-8 mb-4 w-full">
+                        <div class="bg-p5white border-4 border-p5black p-5 lg:p-8 relative shadow-solid-red card-p5 flex flex-col justify-center h-full">
+                            <div class="absolute -top-4 -right-4 bg-p5yellow border-4 border-p5black text-p5black font-display px-4 py-1 transform rotate-12 text-lg">INFO</div>
+                            <h3 class="font-display text-2xl md:text-3xl lg:text-4xl uppercase mb-4 flex items-center gap-3 text-p5red">
                                 <i class="fas fa-user-circle"></i> <span data-i18n="about_me">Acerca de Mí</span>
                             </h3>
-                            <p class="font-bold text-lg leading-relaxed border-l-4 border-p5red pl-4" data-i18n="about_desc">
-                                Soy un desarrollador enfocado en <span class="bg-p5black text-white px-1">páginas y plataformas web modernas</span>. Estudiante de Ingeniería en Sistemas Computacionales con sólidos conocimientos en Ciberseguridad, Programación Web, e IA. Combino habilidades técnicas con experiencia práctica en liderazgo de equipos.
+                            <p class="font-medium text-base md:text-lg lg:text-xl leading-relaxed border-l-4 border-p5red pl-4" data-i18n="about_desc">
+                                Soy un desarrollador enfocado en <span class="bg-p5black text-white px-2 py-0.5">páginas y plataformas web modernas</span>. Estudiante de Ingeniería en Sistemas Computacionales con sólidos conocimientos en Ciberseguridad, Programación Web, e IA. Combino habilidades técnicas con experiencia práctica en liderazgo de equipos.
                             </p>
                         </div>
 
-                        <div class="bg-p5black text-white border-4 border-p5red p-6 relative shadow-solid card-p5">
-                            <h3 class="font-display text-3xl uppercase mb-4 flex items-center gap-2 text-p5yellow">
+                        <div class="bg-p5black text-white border-4 border-p5red p-5 lg:p-8 relative shadow-solid card-p5 transform rotate-1 flex flex-col justify-center h-full">
+                            <h3 class="font-display text-2xl md:text-3xl lg:text-4xl uppercase mb-6 flex items-center gap-3 text-p5yellow">
                                 <i class="fas fa-list-alt"></i> <span data-i18n="data">Datos</span>
                             </h3>
-                            <div class="space-y-4 font-bold">
+                            <div class="space-y-3 md:space-y-4 font-bold text-sm md:text-base lg:text-lg">
                                 <div class="flex flex-col border-b border-gray-700 pb-2">
-                                    <span class="text-p5red text-sm uppercase font-display tracking-widest" data-i18n="location">Ubicación</span>
-                                    <span class="text-xl">Nuevo Casas Grandes, Chihuahua</span>
+                                    <span class="text-p5red text-xs md:text-sm uppercase font-display tracking-widest" data-i18n="location">Ubicación</span>
+                                    <span>Nuevo Casas Grandes, Chihuahua</span>
                                 </div>
                                 <div class="flex flex-col border-b border-gray-700 pb-2">
-                                    <span class="text-p5red text-sm uppercase font-display tracking-widest" data-i18n="status">Estado Actual</span>
-                                    <span class="text-xl" data-i18n="status_desc">Estudiando & Disponible</span>
+                                    <span class="text-p5red text-xs md:text-sm uppercase font-display tracking-widest" data-i18n="status">Estado Actual</span>
+                                    <span data-i18n="status_desc" class="leading-tight">Disponible para: prácticas, trabajo, freelance o colaboración remota</span>
                                 </div>
                                 <div class="flex flex-col border-b border-gray-700 pb-2">
-                                    <span class="text-p5red text-sm uppercase font-display tracking-widest" data-i18n="languages">Idiomas</span>
-                                    <span class="text-xl" data-i18n="languages_desc">Español, Inglés Intermedio</span>
+                                    <span class="text-p5red text-xs md:text-sm uppercase font-display tracking-widest" data-i18n="languages">Idiomas</span>
+                                    <span data-i18n="languages_desc">Español, Inglés Intermedio</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-12 flex flex-wrap gap-6">
-                        <a href="#" class="group relative inline-block">
-                            <div class="absolute inset-0 bg-p5black border-4 border-p5black transform translate-x-2 translate-y-2 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform"></div>
-                            <div class="relative bg-p5red border-4 border-p5black text-white font-display text-2xl px-8 py-3 uppercase flex items-center gap-3 transform -skew-x-12 group-hover:-skew-x-6 transition-transform">
+                    <!-- Tarjeta de Intereses Ampliada -->
+                    <div class="min-h-0 bg-p5white border-4 border-p5black p-5 md:p-6 shadow-solid-sm relative transform -rotate-1 card-p5 flex flex-col justify-center w-full mb-4">
+                        <div class="absolute inset-0 bg-tape opacity-5 mix-blend-multiply"></div>
+                        <h3 class="font-display text-2xl md:text-3xl uppercase mb-4 text-p5black relative z-10 flex items-center gap-2">
+                            <i class="fas text-p5red"></i> <span data-i18n="interests_title">Intereses</span>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 md:gap-3 relative z-10">
+                            <span class="bg-p5black text-white font-bold px-3 py-1.5 text-xs md:text-sm transform skew-x-6 shadow-solid-sm hover:-skew-x-6 transition-transform cursor-default" data-i18n="int1">Desarrollo Móvil</span>
+                            <span class="bg-p5red text-white font-bold px-3 py-1.5 text-xs md:text-sm transform -skew-x-6 shadow-solid-sm hover:skew-x-6 transition-transform cursor-default" data-i18n="int2">Ciberseguridad</span>
+                            <span class="bg-blue-600 text-white font-bold px-3 py-1.5 text-xs md:text-sm transform skew-x-6 shadow-solid-sm hover:-skew-x-6 transition-transform cursor-default" data-i18n="int3">IA Aplicada</span>
+                            <span class="bg-p5yellow text-black font-bold px-3 py-1.5 text-xs md:text-sm transform -skew-x-6 shadow-solid-sm hover:skew-x-6 transition-transform cursor-default" data-i18n="int4">Automatización</span>
+                            <span class="bg-green-600 text-white font-bold px-3 py-1.5 text-xs md:text-sm transform skew-x-6 shadow-solid-sm hover:-skew-x-6 transition-transform cursor-default" data-i18n="int5">Programación Web</span>
+                            
+                            <!-- Nuevos elementos para llenar el contenedor -->
+                            <span class="bg-purple-600 text-white font-bold px-3 py-1.5 text-xs md:text-sm transform -skew-x-6 shadow-solid-sm hover:skew-x-6 transition-transform cursor-default" data-i18n="int6">Diseño UI/UX</span>
+                            <span class="bg-p5black text-white font-bold px-3 py-1.5 text-xs md:text-sm transform skew-x-6 shadow-solid-sm hover:-skew-x-6 transition-transform cursor-default" data-i18n="int7">Arquitectura Cloud</span>
+                            <span class="bg-p5red text-white font-bold px-3 py-1.5 text-xs md:text-sm transform -skew-x-6 shadow-solid-sm hover:skew-x-6 transition-transform cursor-default" data-i18n="int8">Desarrollo de Juegos</span>
+                            <span class="bg-blue-600 text-white font-bold px-3 py-1.5 text-xs md:text-sm transform skew-x-6 shadow-solid-sm hover:-skew-x-6 transition-transform cursor-default" data-i18n="int9">Internet de las Cosas (IoT)</span>
+                            <span class="bg-p5yellow text-black font-bold px-3 py-1.5 text-xs md:text-sm transform -skew-x-6 shadow-solid-sm hover:skew-x-6 transition-transform cursor-default" data-i18n="int10">Análisis de Datos</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4 shrink-0 mt-auto">
+                        <a href="CVRenzoCaycho.pdf" download="CVRenzoCaycho.pdf" id="cv-download-btn" class="group relative inline-block">
+                            <div class="absolute inset-0 bg-p5black border-4 border-p5black transform translate-x-1.5 translate-y-1.5 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform"></div>
+                            <div class="relative bg-p5yellow text-p5black border-4 border-p5black font-display text-xl md:text-2xl px-6 md:px-8 py-2 md:py-3 uppercase flex items-center gap-3 transform -skew-x-12 group-hover:-skew-x-6 transition-transform">
                                 <i class="fas fa-file-pdf"></i> <span data-i18n="download_cv">Descargar CV</span>
                             </div>
                         </a>
@@ -240,416 +272,442 @@
                 </section>
 
                 <!-- VISTA: EXPERIENCIA -->
-                <section id="experiencia-view" class="tab-content view-hidden">
-                    <h2 class="text-6xl md:text-8xl font-display uppercase text-p5white text-stroke-black mb-12 transform -rotate-2">
+                <section id="experiencia-view" class="tab-content view-hidden h-full flex-col justify-center">
+                    <h2 class="text-5xl md:text-6xl font-display uppercase text-p5white text-stroke-black mb-4 transform -rotate-1 shrink-0 self-start">
                         <span data-i18n="exp_title1">Experiencia</span> <span class="text-p5red" data-i18n="exp_title2">Laboral</span>
                     </h2>
 
-                    <!-- UNIFORMIDAD EN EXPERIENCIA: Todas las tarjetas son bg-p5white con bordes negros -->
-                    <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-2 before:bg-p5black">
-                        
-                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                            <div class="flex items-center justify-center w-12 h-12 rounded-full border-4 border-p5black bg-p5red text-white shadow-solid shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-display text-xl">1</div>
-                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-p5white border-4 border-p5black p-6 shadow-solid card-p5">
-                                <div class="flex justify-between items-start mb-2 border-b-4 border-p5red pb-2">
-                                    <h3 class="text-2xl font-display uppercase text-p5black">John Deere</h3>
-                                    <span class="bg-p5black text-white font-bold px-2 py-1 text-sm">2024 - 2025</span>
-                                </div>
-                                <p class="text-p5red font-bold uppercase mb-2" data-i18n="job1_role">Limpieza y Atención</p>
-                                <p class="text-gray-800 font-medium mb-2" data-i18n="job1_desc">Encargado de limpieza general y organización.</p>
-                                <ul class="list-disc list-inside font-medium text-sm space-y-1 ml-2">
-                                    <li data-i18n="job1_b1">Paciencia, organización y atención al detalle.</li>
-                                    <li data-i18n="job1_b2">Mantenimiento de estándares de calidad.</li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="w-full flex-1 flex flex-col justify-center min-h-0 relative py-2">
+                        <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-1.5 bg-p5red transform -translate-x-1/2 z-0"></div>
 
-                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                            <div class="flex items-center justify-center w-12 h-12 rounded-full border-4 border-p5black bg-p5red text-white shadow-solid shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-display text-xl">2</div>
-                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-p5white border-4 border-p5black p-6 shadow-solid card-p5">
-                                <div class="flex justify-between items-start mb-2 border-b-4 border-p5red pb-2">
-                                    <h3 class="text-2xl font-display uppercase text-p5black">WebHelp / Glovo</h3>
-                                    <span class="bg-p5black text-white font-bold px-2 py-1 text-sm">2022</span>
+                        <div class="flex flex-col gap-4 relative z-10 w-full">
+                            
+                            <div class="flex flex-col md:flex-row items-center w-full relative">
+                                <div class="hidden md:block md:w-1/2 md:pr-8"></div>
+                                <div class="w-12 h-12 absolute left-4 md:left-1/2 transform md:-translate-x-1/2 bg-p5black border-4 border-p5red rounded-full flex justify-center items-center text-white font-display text-xl z-20 shadow-solid-sm">1</div>
+                                <div class="w-full pl-16 md:pl-8 md:w-1/2">
+                                    <div class="bg-p5white border-4 border-p5black p-4 shadow-solid-sm card-p5 text-left">
+                                        <div class="flex justify-between items-start mb-2 border-b-4 border-p5red pb-1">
+                                            <h3 class="text-xl md:text-2xl font-display uppercase text-p5black leading-none">John Deere</h3>
+                                            <span class="bg-p5black text-white font-bold px-2 py-0.5 text-xs">2024-2025</span>
+                                        </div>
+                                        <p class="text-p5red font-bold uppercase mb-1 text-sm" data-i18n="job1_role">Limpieza y Atención</p>
+                                        <p class="text-gray-800 font-medium mb-1 text-sm leading-tight" data-i18n="job1_desc">Encargado de limpieza general y organización.</p>
+                                        <ul class="list-disc list-inside font-medium text-xs md:text-sm space-y-0.5 ml-1 leading-tight text-gray-700">
+                                            <li data-i18n="job1_b1">Paciencia, organización y atención al detalle.</li>
+                                            <li data-i18n="job1_b2">Mantenimiento de estándares de calidad.</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <p class="text-p5red font-bold uppercase mb-2" data-i18n="job2_role">Asistencia al Cliente</p>
-                                <p class="text-gray-800 font-medium mb-2" data-i18n="job2_desc">Soporte técnico y atención para usuarios de Glovo en España.</p>
-                                <ul class="list-disc list-inside font-medium text-sm space-y-1 ml-2 text-gray-800">
-                                    <li data-i18n="job2_b1">Herramientas de gestión (Slack, CRM).</li>
-                                    <li data-i18n="job2_b2">Resolución de conflictos con empatía.</li>
-                                </ul>
                             </div>
-                        </div>
 
-                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                            <div class="flex items-center justify-center w-12 h-12 rounded-full border-4 border-p5black bg-p5red text-white shadow-solid shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-display text-xl">3</div>
-                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-p5white border-4 border-p5black p-6 shadow-solid card-p5">
-                                <div class="flex justify-between items-start mb-2 border-b-4 border-p5red pb-2">
-                                    <h3 class="text-2xl font-display uppercase text-p5black">Activa Research</h3>
-                                    <span class="bg-p5black text-white font-bold px-2 py-1 text-sm">2021</span>
+                            <div class="flex flex-col md:flex-row items-center w-full relative">
+                                <div class="w-full pl-16 md:pl-0 md:pr-8 md:w-1/2">
+                                    <div class="bg-p5white border-4 border-p5black p-4 shadow-solid-sm card-p5 md:text-right text-left">
+                                        <div class="flex justify-between md:flex-row-reverse items-start mb-2 border-b-4 border-p5red pb-1">
+                                            <h3 class="text-xl md:text-2xl font-display uppercase text-p5black leading-none">WebHelp / Glovo</h3>
+                                            <span class="bg-p5black text-white font-bold px-2 py-0.5 text-xs">2022</span>
+                                        </div>
+                                        <p class="text-p5red font-bold uppercase mb-1 text-sm" data-i18n="job2_role">Asistencia al Cliente</p>
+                                        <p class="text-gray-800 font-medium mb-1 text-sm leading-tight" data-i18n="job2_desc">Soporte técnico y atención para usuarios de Glovo.</p>
+                                        <ul class="list-disc md:list-none font-medium text-xs md:text-sm space-y-0.5 ml-5 md:ml-0 leading-tight text-gray-700">
+                                            <li><span data-i18n="job2_b1">Herramientas de gestión (Slack, CRM).</span> <span class="hidden md:inline">•</span></li>
+                                            <li><span data-i18n="job2_b2">Resolución de conflictos con empatía.</span> <span class="hidden md:inline">•</span></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <p class="text-p5red font-bold uppercase mb-2" data-i18n="job3_role">Encuestador</p>
-                                <p class="text-gray-800 font-medium" data-i18n="job3_desc">Estudios de mercado para el público chileno. Persuasión y comunicación verbal.</p>
+                                <div class="w-12 h-12 absolute left-4 md:left-1/2 transform md:-translate-x-1/2 bg-p5red border-4 border-p5black rounded-full flex justify-center items-center text-white font-display text-xl z-20 shadow-solid-sm">2</div>
+                                <div class="hidden md:block md:w-1/2 md:pl-8"></div>
                             </div>
-                        </div>
 
-                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                            <div class="flex items-center justify-center w-12 h-12 rounded-full border-4 border-p5black bg-p5red text-white shadow-solid shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-display text-xl">4</div>
-                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-p5white border-4 border-p5black p-6 shadow-solid card-p5">
-                                <div class="flex justify-between items-start mb-2 border-b-4 border-p5red pb-2">
-                                    <h3 class="text-2xl font-display uppercase text-p5black" data-i18n="job4_title">La Iglesia de Jesucristo</h3>
-                                    <span class="bg-p5black text-white font-bold px-2 py-1 text-sm">2018-2020</span>
+                            <div class="flex flex-col md:flex-row items-center w-full relative">
+                                <div class="hidden md:block md:w-1/2 md:pr-8"></div>
+                                <div class="w-12 h-12 absolute left-4 md:left-1/2 transform md:-translate-x-1/2 bg-p5black border-4 border-p5red rounded-full flex justify-center items-center text-white font-display text-xl z-20 shadow-solid-sm">3</div>
+                                <div class="w-full pl-16 md:pl-8 md:w-1/2">
+                                    <div class="bg-p5white border-4 border-p5black p-4 shadow-solid-sm card-p5 text-left">
+                                        <div class="flex justify-between items-start mb-2 border-b-4 border-p5red pb-1">
+                                            <h3 class="text-xl md:text-2xl font-display uppercase text-p5black leading-none">Activa Research</h3>
+                                            <span class="bg-p5black text-white font-bold px-2 py-0.5 text-xs">2021</span>
+                                        </div>
+                                        <p class="text-p5red font-bold uppercase mb-1 text-sm" data-i18n="job3_role">Encuestador</p>
+                                        <p class="text-gray-800 font-medium text-sm leading-tight" data-i18n="job3_desc">Estudios de mercado para el público chileno. Persuasión y comunicación verbal.</p>
+                                    </div>
                                 </div>
-                                <p class="text-p5red font-bold uppercase mb-2" data-i18n="job4_role">Voluntariado / Misionero</p>
-                                <p class="text-gray-800 font-medium" data-i18n="job4_desc">Servicio comunitario en CDMX. Liderazgo y adaptabilidad al estrés.</p>
                             </div>
-                        </div>
 
+                            <div class="flex flex-col md:flex-row items-center w-full relative">
+                                <div class="w-full pl-16 md:pl-0 md:pr-8 md:w-1/2">
+                                    <div class="bg-p5white border-4 border-p5black p-4 shadow-solid-sm card-p5 md:text-right text-left">
+                                        <div class="flex justify-between md:flex-row-reverse items-start mb-2 border-b-4 border-p5red pb-1">
+                                            <h3 class="text-xl md:text-2xl font-display uppercase text-p5black leading-tight" data-i18n="job4_title">La Iglesia de Jesucristo</h3>
+                                            <span class="bg-p5black text-white font-bold px-2 py-0.5 text-xs shrink-0 md:mr-2">2018-20</span>
+                                        </div>
+                                        <p class="text-p5red font-bold uppercase mb-1 text-sm" data-i18n="job4_role">Voluntariado / Misionero</p>
+                                        <p class="text-gray-800 font-medium text-sm leading-tight" data-i18n="job4_desc">Servicio comunitario en CDMX. Liderazgo y adaptabilidad al estrés.</p>
+                                    </div>
+                                </div>
+                                <div class="w-12 h-12 absolute left-4 md:left-1/2 transform md:-translate-x-1/2 bg-p5red border-4 border-p5black rounded-full flex justify-center items-center text-white font-display text-xl z-20 shadow-solid-sm">4</div>
+                                <div class="hidden md:block md:w-1/2 md:pl-8"></div>
+                            </div>
+
+                        </div>
                     </div>
                 </section>
 
                 <!-- VISTA: PROYECTOS -->
-                <section id="proyectos-view" class="tab-content view-hidden">
-                    <div class="flex items-end gap-4 mb-10">
-                        <h2 class="text-6xl md:text-8xl font-display uppercase text-p5red text-stroke-black transform rotate-2 bg-p5yellow border-4 border-black inline-block px-4 shadow-solid" data-i18n="nav_projects">
+                <section id="proyectos-view" class="tab-content view-hidden h-full flex-col justify-start">
+                    <div class="flex items-end gap-3 mb-4 shrink-0">
+                        <h2 class="text-5xl md:text-6xl font-display uppercase text-p5red text-stroke-black transform rotate-1 bg-p5yellow border-4 border-black inline-block px-4 py-1 shadow-solid-sm" data-i18n="nav_projects">
                             Proyectos
                         </h2>
-                        <span class="font-bold text-xl uppercase tracking-widest hidden md:block" data-i18n="proj_sub">/// Portafolio</span>
+                        <span class="font-bold text-base md:text-xl uppercase tracking-widest hidden md:block" data-i18n="proj_sub">/// Portafolio</span>
                     </div>
 
-                    <!-- UNIFORMIDAD EN PROYECTOS: Fondo blanco, banner de imagen en negro -->
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        
-                        <div class="bg-p5white border-4 border-p5black flex flex-col h-full shadow-solid relative group card-p5">
-                            <div class="absolute -top-4 -left-4 bg-p5red text-white border-4 border-black font-display px-3 py-1 text-xl transform -rotate-12 z-10 group-hover:scale-110 transition-transform">WEB</div>
-                            <div class="h-40 bg-p5black relative overflow-hidden border-b-4 border-p5black flex items-center justify-center">
-                                <i class="fas fa-graduation-cap text-6xl text-p5red transform group-hover:scale-125 transition-transform"></i>
-                            </div>
-                            <div class="p-5 flex-1 flex flex-col">
-                                <h3 class="text-2xl font-display uppercase mb-2" data-i18n="proj1_title">Gestor Escolar</h3>
-                                <p class="font-medium text-sm text-gray-700 mb-4 flex-1" data-i18n="proj1_desc">Webapp para administrar calificaciones y gestión de estudiantes.</p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="bg-black text-white px-2 py-1 text-xs font-bold uppercase">PHP</span>
-                                    <span class="bg-black text-white px-2 py-1 text-xs font-bold uppercase">CSS3</span>
-                                    <span class="bg-black text-white px-2 py-1 text-xs font-bold uppercase">JS</span>
+                    <div class="w-full flex-1 flex flex-col justify-center min-h-0 pb-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 h-full">
+                            
+                            <div class="bg-p5white border-4 border-p5black flex flex-col h-full shadow-solid-sm relative group card-p5">
+                                <div class="absolute -top-3 -left-3 bg-p5red text-white border-2 border-black font-display px-2 text-sm transform -rotate-12 z-10">WEB</div>
+                                <div class="h-1/3 min-h-[5rem] bg-p5black relative overflow-hidden border-b-4 border-p5black flex items-center justify-center shrink-0">
+                                    <i class="fas fa-graduation-cap text-4xl md:text-5xl text-p5red transform group-hover:scale-125 transition-transform"></i>
                                 </div>
-                                <div class="flex gap-2 border-t-4 border-p5red pt-4">
-                                    <a href="https://github.com/zekkencito/Gestor_de_calificaciones.git" target="_blank" class="flex-1 bg-p5white border-4 border-p5black text-center py-2 font-display uppercase hover:bg-p5yellow transition-colors"><i class="fab fa-github"></i> <span data-i18n="btn_code">Código</span></a>
-                                    <a href="https://games-now.skyzerozx.com/Gestor_de_calificaciones/" target="_blank" class="flex-1 bg-p5red border-4 border-p5black text-white text-center py-2 font-display uppercase hover:bg-black transition-colors"><i class="fas fa-play"></i> <span data-i18n="btn_visit">Visitar</span></a>
+                                <div class="p-4 flex-1 flex flex-col justify-between min-h-0">
+                                    <div class="mb-2">
+                                        <h3 class="text-xl md:text-2xl font-display uppercase mb-1 leading-none" data-i18n="proj1_title">Gestor Escolar</h3>
+                                        <p class="font-medium text-xs md:text-sm text-gray-700 leading-tight" data-i18n="proj1_desc">Webapp para administrar calificaciones y gestión de estudiantes.</p>
+                                    </div>
+                                    <div>
+                                        <div class="flex flex-wrap gap-1 mb-3">
+                                            <span class="bg-black text-white px-2 py-0.5 text-[10px] md:text-xs font-bold uppercase">PHP / JS</span>
+                                        </div>
+                                        <div class="flex gap-2 border-t-4 border-p5red pt-3">
+                                            <a href="https://github.com/zekkencito/Gestor_de_calificaciones.git" target="_blank" class="flex-1 bg-p5white border-2 border-p5black text-center py-1.5 font-display text-xs md:text-sm uppercase hover:bg-p5yellow transition-colors"><i class="fab fa-github"></i> <span data-i18n="btn_code">Código</span></a>
+                                            <a href="https://games-now.skyzerozx.com/Gestor_de_calificaciones/" target="_blank" class="flex-1 bg-p5red border-2 border-p5black text-white text-center py-1.5 font-display text-xs md:text-sm uppercase hover:bg-black transition-colors"><i class="fas fa-play"></i> <span data-i18n="btn_visit">Visitar</span></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="bg-p5white border-4 border-p5black flex flex-col h-full shadow-solid relative group card-p5">
-                            <div class="absolute -top-4 -left-4 bg-p5red text-white border-4 border-black font-display px-3 py-1 text-xl transform -rotate-12 z-10 group-hover:scale-110 transition-transform">WEB</div>
-                            <div class="h-40 bg-p5black relative overflow-hidden border-b-4 border-p5black flex items-center justify-center">
-                                <i class="fas fa-desktop text-6xl text-p5red transform group-hover:scale-125 transition-transform"></i>
-                            </div>
-                            <div class="p-5 flex-1 flex flex-col">
-                                <h3 class="text-2xl font-display uppercase mb-2">Compify</h3>
-                                <p class="font-medium text-sm text-gray-700 mb-4 flex-1" data-i18n="proj2_desc">Plataforma para comparar precios de laptops y componentes PC.</p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="bg-black text-white px-2 py-1 text-xs font-bold uppercase">Laravel</span>
-                                    <span class="bg-black text-white px-2 py-1 text-xs font-bold uppercase">JS</span>
+                            <div class="bg-p5white border-4 border-p5black flex flex-col h-full shadow-solid-sm relative group card-p5 transform rotate-1">
+                                <div class="absolute -top-3 -left-3 bg-p5red text-white border-2 border-black font-display px-2 text-sm transform -rotate-12 z-10">WEB</div>
+                                <div class="h-1/3 min-h-[5rem] bg-p5black relative overflow-hidden border-b-4 border-p5black flex items-center justify-center shrink-0">
+                                    <i class="fas fa-desktop text-4xl md:text-5xl text-p5red transform group-hover:scale-125 transition-transform"></i>
                                 </div>
-                                <div class="flex gap-2 border-t-4 border-p5red pt-4">
-                                    <a href="https://github.com/garciatarelo/compify" target="_blank" class="w-full bg-p5white border-4 border-p5black text-center py-2 font-display uppercase hover:bg-p5yellow transition-colors"><i class="fab fa-github"></i> <span data-i18n="btn_source">Código Fuente</span></a>
+                                <div class="p-4 flex-1 flex flex-col justify-between min-h-0">
+                                    <div class="mb-2">
+                                        <h3 class="text-xl md:text-2xl font-display uppercase mb-1 leading-none">Compify</h3>
+                                        <p class="font-medium text-xs md:text-sm text-gray-700 leading-tight" data-i18n="proj2_desc">Plataforma para comparar precios de laptops y componentes PC.</p>
+                                    </div>
+                                    <div>
+                                        <div class="flex flex-wrap gap-1 mb-3">
+                                            <span class="bg-black text-white px-2 py-0.5 text-[10px] md:text-xs font-bold uppercase">Laravel / JS</span>
+                                        </div>
+                                        <div class="flex gap-2 border-t-4 border-p5red pt-3">
+                                            <a href="https://github.com/garciatarelo/compify" target="_blank" class="w-full bg-p5white border-2 border-p5black text-center py-1.5 font-display text-xs md:text-sm uppercase hover:bg-p5yellow transition-colors"><i class="fab fa-github"></i> <span data-i18n="btn_source">Código Fuente</span></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="bg-p5white border-4 border-p5black flex flex-col h-full shadow-solid relative group card-p5">
-                            <div class="absolute -top-4 -left-4 bg-p5red text-white border-4 border-black font-display px-3 py-1 text-xl transform -rotate-12 z-10 group-hover:scale-110 transition-transform">VR</div>
-                            <div class="h-40 bg-p5black relative overflow-hidden border-b-4 border-p5black flex items-center justify-center">
-                                <i class="fas fa-vr-cardboard text-6xl text-p5red transform group-hover:scale-125 transition-transform"></i>
-                            </div>
-                            <div class="p-5 flex-1 flex flex-col">
-                                <h3 class="text-2xl font-display uppercase mb-2" data-i18n="proj3_title">Realidad Virtual 3D</h3>
-                                <p class="font-medium text-sm text-gray-700 mb-4 flex-1" data-i18n="proj3_desc">Experiencia inmersiva del cuerpo humano en realidad virtual.</p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="bg-black text-white px-2 py-1 text-xs font-bold uppercase">JS</span>
-                                    <span class="bg-black text-white px-2 py-1 text-xs font-bold uppercase">HTML5</span>
+                            <div class="bg-p5white border-4 border-p5black flex flex-col h-full shadow-solid-sm relative group card-p5 transform -rotate-1">
+                                <div class="absolute -top-3 -left-3 bg-p5red text-white border-2 border-black font-display px-2 text-sm transform -rotate-12 z-10">VR</div>
+                                <div class="h-1/3 min-h-[5rem] bg-p5black relative overflow-hidden border-b-4 border-p5black flex items-center justify-center shrink-0">
+                                    <i class="fas fa-vr-cardboard text-4xl md:text-5xl text-p5red transform group-hover:scale-125 transition-transform"></i>
                                 </div>
-                                <div class="flex gap-2 border-t-4 border-p5red pt-4">
-                                    <a href="https://github.com/zekkencito/ExperienciaVR.git" target="_blank" class="flex-1 bg-p5white border-4 border-p5black text-center py-2 font-display uppercase hover:bg-p5yellow transition-colors"><i class="fab fa-github"></i> <span data-i18n="btn_code">Código</span></a>
-                                    <a href="https://games-now.skyzerozx.com/Sistemas/" target="_blank" class="flex-1 bg-p5red border-4 border-p5black text-white text-center py-2 font-display uppercase hover:bg-black transition-colors"><i class="fas fa-play"></i> <span data-i18n="btn_visit">Visitar</span></a>
+                                <div class="p-4 flex-1 flex flex-col justify-between min-h-0">
+                                    <div class="mb-2">
+                                        <h3 class="text-xl md:text-2xl font-display uppercase mb-1 leading-none" data-i18n="proj3_title">Realidad Virtual 3D</h3>
+                                        <p class="font-medium text-xs md:text-sm text-gray-700 leading-tight" data-i18n="proj3_desc">Experiencia inmersiva del cuerpo humano en realidad virtual.</p>
+                                    </div>
+                                    <div>
+                                        <div class="flex flex-wrap gap-1 mb-3">
+                                            <span class="bg-black text-white px-2 py-0.5 text-[10px] md:text-xs font-bold uppercase">JS / HTML5</span>
+                                        </div>
+                                        <div class="flex gap-2 border-t-4 border-p5red pt-3">
+                                            <a href="https://github.com/zekkencito/ExperienciaVR.git" target="_blank" class="flex-1 bg-p5white border-2 border-p5black text-center py-1.5 font-display text-xs md:text-sm uppercase hover:bg-p5yellow transition-colors"><i class="fab fa-github"></i> <span data-i18n="btn_code">Código</span></a>
+                                            <a href="https://games-now.skyzerozx.com/Sistemas/" target="_blank" class="flex-1 bg-p5red border-2 border-p5black text-white text-center py-1.5 font-display text-xs md:text-sm uppercase hover:bg-black transition-colors"><i class="fas fa-play"></i> <span data-i18n="btn_visit">Visitar</span></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="bg-p5white border-4 border-p5black flex flex-col h-full shadow-solid relative group card-p5 transform rotate-1">
-                            <div class="absolute -top-4 -left-4 bg-p5red text-white border-4 border-black font-display px-3 py-1 text-xl transform -rotate-12 z-10 group-hover:scale-110 transition-transform">WEB</div>
-                            <div class="h-40 bg-p5black relative overflow-hidden border-b-4 border-p5black flex items-center justify-center">
-                                <i class="fas fa-gamepad text-6xl text-p5red transform group-hover:scale-125 transition-transform"></i>
-                            </div>
-                            <div class="p-5 flex-1 flex flex-col">
-                                <h3 class="text-2xl font-display uppercase mb-2">GamesNow</h3>
-                                <p class="font-medium text-sm text-gray-700 mb-4 flex-1" data-i18n="proj4_desc">Portal de noticias y reseñas de videojuegos con actualización constante.</p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="bg-black text-white px-2 py-1 text-xs font-bold uppercase">PHP</span>
-                                    <span class="bg-black text-white px-2 py-1 text-xs font-bold uppercase">JS</span>
+                            <div class="bg-p5white border-4 border-p5black flex flex-col h-full shadow-solid-sm relative group card-p5 transform rotate-1">
+                                <div class="absolute -top-3 -left-3 bg-p5red text-white border-2 border-black font-display px-2 text-sm transform -rotate-12 z-10">WEB</div>
+                                <div class="h-1/3 min-h-[5rem] bg-p5black relative overflow-hidden border-b-4 border-p5black flex items-center justify-center shrink-0">
+                                    <i class="fas fa-gamepad text-4xl md:text-5xl text-p5red transform group-hover:scale-125 transition-transform"></i>
                                 </div>
-                                <div class="flex gap-2 border-t-4 border-p5red pt-4">
-                                    <a href="https://github.com/zekkencito/GamesNow.git" target="_blank" class="flex-1 bg-p5white border-4 border-p5black text-center py-2 font-display uppercase hover:bg-p5yellow transition-colors"><i class="fab fa-github"></i> <span data-i18n="btn_code">Código</span></a>
-                                    <a href="https://games-now.skyzerozx.com/GamesNow/" target="_blank" class="flex-1 bg-p5red border-4 border-p5black text-white text-center py-2 font-display uppercase hover:bg-black transition-colors"><i class="fas fa-play"></i> <span data-i18n="btn_visit">Visitar</span></a>
+                                <div class="p-4 flex-1 flex flex-col justify-between min-h-0">
+                                    <div class="mb-2">
+                                        <h3 class="text-xl md:text-2xl font-display uppercase mb-1 leading-none">GamesNow</h3>
+                                        <p class="font-medium text-xs md:text-sm text-gray-700 leading-tight" data-i18n="proj4_desc">Portal de noticias y reseñas de videojuegos.</p>
+                                    </div>
+                                    <div>
+                                        <div class="flex flex-wrap gap-1 mb-3">
+                                            <span class="bg-black text-white px-2 py-0.5 text-[10px] md:text-xs font-bold uppercase">PHP / JS</span>
+                                        </div>
+                                        <div class="flex gap-2 border-t-4 border-p5red pt-3">
+                                            <a href="https://github.com/zekkencito/GamesNow.git" target="_blank" class="flex-1 bg-p5white border-2 border-p5black text-center py-1.5 font-display text-xs md:text-sm uppercase hover:bg-p5yellow transition-colors"><i class="fab fa-github"></i> <span data-i18n="btn_code">Código</span></a>
+                                            <a href="https://games-now.skyzerozx.com/GamesNow/" target="_blank" class="flex-1 bg-p5red border-2 border-p5black text-white text-center py-1.5 font-display text-xs md:text-sm uppercase hover:bg-black transition-colors"><i class="fas fa-play"></i> <span data-i18n="btn_visit">Visitar</span></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="bg-p5white border-4 border-p5black flex flex-col h-full shadow-solid relative group card-p5 transform -rotate-1">
-                            <div class="absolute -top-4 -left-4 bg-p5red text-white border-4 border-black font-display px-3 py-1 text-xl transform -rotate-12 z-10 group-hover:scale-110 transition-transform">3D</div>
-                            <div class="h-40 bg-p5black relative overflow-hidden border-b-4 border-p5black flex items-center justify-center">
-                                <i class="fas fa-globe-americas text-6xl text-p5red transform group-hover:scale-125 transition-transform"></i>
-                            </div>
-                            <div class="p-5 flex-1 flex flex-col">
-                                <h3 class="text-2xl font-display uppercase mb-2">Earth 3D</h3>
-                                <p class="font-medium text-sm text-gray-700 mb-4 flex-1" data-i18n="proj5_desc">Modelo interactivo 3D de la Tierra con capas informativas.</p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="bg-black text-white px-2 py-1 text-xs font-bold uppercase">JS</span>
-                                    <span class="bg-black text-white px-2 py-1 text-xs font-bold uppercase">Three.js</span>
+                            <div class="bg-p5white border-4 border-p5black flex flex-col h-full shadow-solid-sm relative group card-p5 transform -rotate-1">
+                                <div class="absolute -top-3 -left-3 bg-p5red text-white border-2 border-black font-display px-2 text-sm transform -rotate-12 z-10">3D</div>
+                                <div class="h-1/3 min-h-[5rem] bg-p5black relative overflow-hidden border-b-4 border-p5black flex items-center justify-center shrink-0">
+                                    <i class="fas fa-globe-americas text-4xl md:text-5xl text-p5red transform group-hover:scale-125 transition-transform"></i>
                                 </div>
-                                <div class="flex gap-2 border-t-4 border-p5red pt-4">
-                                    <a href="https://github.com/zekkencito/Earth3D.git" target="_blank" class="flex-1 bg-p5white border-4 border-p5black text-center py-2 font-display uppercase hover:bg-p5yellow transition-colors"><i class="fab fa-github"></i> <span data-i18n="btn_code">Código</span></a>
-                                    <a href="https://games-now.skyzerozx.com/Earth3D/" target="_blank" class="flex-1 bg-p5red border-4 border-p5black text-white text-center py-2 font-display uppercase hover:bg-black transition-colors"><i class="fas fa-play"></i> <span data-i18n="btn_visit">Visitar</span></a>
+                                <div class="p-4 flex-1 flex flex-col justify-between min-h-0">
+                                    <div class="mb-2">
+                                        <h3 class="text-xl md:text-2xl font-display uppercase mb-1 leading-none">Earth 3D</h3>
+                                        <p class="font-medium text-xs md:text-sm text-gray-700 leading-tight" data-i18n="proj5_desc">Modelo interactivo 3D de la Tierra.</p>
+                                    </div>
+                                    <div>
+                                        <div class="flex flex-wrap gap-1 mb-3">
+                                            <span class="bg-black text-white px-2 py-0.5 text-[10px] md:text-xs font-bold uppercase">JS / Three.js</span>
+                                        </div>
+                                        <div class="flex gap-2 border-t-4 border-p5red pt-3">
+                                            <a href="https://github.com/zekkencito/Earth3D.git" target="_blank" class="flex-1 bg-p5white border-2 border-p5black text-center py-1.5 font-display text-xs md:text-sm uppercase hover:bg-p5yellow transition-colors"><i class="fab fa-github"></i> <span data-i18n="btn_code">Código</span></a>
+                                            <a href="https://games-now.skyzerozx.com/Earth3D/" target="_blank" class="flex-1 bg-p5red border-2 border-p5black text-white text-center py-1.5 font-display text-xs md:text-sm uppercase hover:bg-black transition-colors"><i class="fas fa-play"></i> <span data-i18n="btn_visit">Visitar</span></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="bg-p5yellow border-4 border-p5black flex flex-col h-full shadow-solid relative group card-p5 justify-center items-center p-8 text-center cursor-pointer hover:bg-p5red hover:text-white transition-colors" onclick="window.open('https://github.com/zekkencito?tab=repositories', '_blank')">
-                            <i class="fab fa-github text-6xl mb-4 group-hover:animate-bounce"></i>
-                            <h3 class="text-4xl font-display uppercase text-stroke-black text-white" data-i18n="btn_more">Ver Más</h3>
-                            <p class="font-bold border-t-4 border-black mt-4 pt-4 uppercase" data-i18n="btn_more_desc">Ir a GitHub</p>
-                        </div>
+                            <div class="bg-p5yellow border-4 border-p5black flex flex-col h-full shadow-solid-sm relative group card-p5 justify-center items-center p-6 text-center cursor-pointer hover:bg-p5red hover:text-white transition-colors" onclick="window.open('https://github.com/zekkencito?tab=repositories', '_blank')">
+                                <i class="fab fa-github text-5xl md:text-6xl mb-3 group-hover:animate-bounce"></i>
+                                <h3 class="text-2xl md:text-4xl font-display uppercase text-stroke-black text-white leading-none" data-i18n="btn_more">Ver Más</h3>
+                                <p class="font-bold border-t-4 border-black mt-3 pt-2 uppercase text-xs md:text-sm" data-i18n="btn_more_desc">Ir a GitHub</p>
+                            </div>
 
+                        </div>
                     </div>
                 </section>
 
                 <!-- VISTA: HABILIDADES -->
-                <section id="habilidades-view" class="tab-content view-hidden">
-                    <h2 class="text-6xl md:text-8xl font-display uppercase text-p5white text-stroke-black mb-12 bg-p5black inline-block px-4 py-2 transform skew-x-12 border-4 border-p5red shadow-solid-red">
+                <section id="habilidades-view" class="tab-content view-hidden h-full flex-col justify-start">
+                    <h2 class="text-5xl md:text-6xl font-display uppercase text-p5white text-stroke-black mb-4 bg-p5black inline-block px-4 py-2 transform skew-x-12 border-4 border-p5red shadow-solid-red shrink-0 self-start">
                         <span class="transform -skew-x-12 block" data-i18n="nav_skills">HABILIDADES</span>
                     </h2>
 
-                    <!-- UNIFORMIDAD EN HABILIDADES: Cuadrícula negra consolidada tipo dashboard -->
-                    <div class="mb-12 relative">
-                        <h3 class="font-display text-3xl uppercase mb-6 text-black border-b-4 border-black pb-2 flex items-center gap-3">
-                            <i class="fas fa-layer-group text-p5red"></i> <span data-i18n="skills_combined">Lenguajes y Tecnologías</span>
-                        </h3>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <!-- Todos uniformes: fondo negro, texto blanco, borde oscuro, sombreado rojo -->
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fab fa-php text-5xl mb-3 text-indigo-400"></i><span class="font-bold tracking-wider">PHP</span>
+                    <div class="w-full flex-1 flex flex-col justify-center min-h-0">
+                        <div class="relative w-full h-full flex flex-col justify-center gap-6">
+                            
+                            <div class="flex-1 min-h-0 flex flex-col justify-center">
+                                <h3 class="font-display text-xl md:text-2xl uppercase mb-3 md:mb-4 text-black border-b-4 border-black pb-1 flex items-center gap-2">
+                                    <i class="fas fa-layer-group text-p5red"></i> <span data-i18n="skills_combined">Lenguajes y Tecnologías</span>
+                                </h3>
+                                <div class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-6 gap-3 md:gap-4">
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fab fa-php text-3xl md:text-4xl mb-2 text-indigo-400"></i><span class="font-bold text-xs md:text-sm tracking-wider">PHP</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fab fa-js text-3xl md:text-4xl mb-2 text-yellow-400"></i><span class="font-bold text-xs md:text-sm tracking-wider">JavaScript</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fab fa-html5 text-3xl md:text-4xl mb-2 text-orange-500"></i><span class="font-bold text-xs md:text-sm tracking-wider">HTML5</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fab fa-css3-alt text-3xl md:text-4xl mb-2 text-blue-500"></i><span class="font-bold text-xs md:text-sm tracking-wider">CSS3</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fab fa-python text-3xl md:text-4xl mb-2 text-blue-300"></i><span class="font-bold text-xs md:text-sm tracking-wider">Python</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fas fa-microchip text-3xl md:text-4xl mb-2 text-teal-400"></i><span class="font-bold text-xs md:text-sm tracking-wider">Arduino</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fab fa-linux text-3xl md:text-4xl mb-2 text-yellow-200"></i><span class="font-bold text-xs md:text-sm text-center leading-none">Linux / Bash</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fas fa-network-wired text-3xl md:text-4xl mb-2 text-blue-400"></i><span class="font-bold text-xs md:text-sm text-center leading-none">Redes (CCNA)</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fas fa-shield-alt text-3xl md:text-4xl mb-2 text-green-500"></i><span class="font-bold text-xs md:text-sm text-center leading-none">Ciberseg.</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fab fa-laravel text-3xl md:text-4xl mb-2 text-red-500"></i><span class="font-bold text-xs md:text-sm tracking-wider">Laravel</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fab fa-react text-3xl md:text-4xl mb-2 text-cyan-400"></i><span class="font-bold text-xs md:text-sm tracking-wider">React</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fas fa-database text-3xl md:text-4xl mb-2 text-blue-400"></i><span class="font-bold text-xs md:text-sm tracking-wider">MySQL</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fas fa-server text-3xl md:text-4xl mb-2 text-red-400"></i><span class="font-bold text-xs md:text-sm text-center leading-none">SQL Server</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fab fa-bootstrap text-3xl md:text-4xl mb-2 text-purple-500"></i><span class="font-bold text-xs md:text-sm tracking-wider">Bootstrap</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fas fa-project-diagram text-3xl md:text-4xl mb-2 text-pink-500"></i><span class="font-bold text-xs md:text-sm tracking-wider">n8n</span>
+                                    </div>
+                                    <div class="bg-[#1a1a1a] rounded-lg p-3 md:p-4 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white transition-transform hover:-translate-y-1">
+                                        <i class="fas fa-terminal text-3xl md:text-4xl mb-2 text-gray-400"></i><span class="font-bold text-xs md:text-sm tracking-wider">Terminal</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fab fa-js text-5xl mb-3 text-yellow-400"></i><span class="font-bold tracking-wider">JavaScript</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fab fa-html5 text-5xl mb-3 text-orange-500"></i><span class="font-bold tracking-wider">HTML5</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fab fa-css3-alt text-5xl mb-3 text-blue-500"></i><span class="font-bold tracking-wider">CSS3</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fab fa-python text-5xl mb-3 text-blue-300"></i><span class="font-bold tracking-wider">Python</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fas fa-microchip text-5xl mb-3 text-teal-400"></i><span class="font-bold tracking-wider">Arduino</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fab fa-linux text-5xl mb-3 text-yellow-200"></i><span class="font-bold tracking-wider text-center leading-tight">Linux / Bash</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fas fa-network-wired text-5xl mb-3 text-blue-400"></i><span class="font-bold tracking-wider text-center leading-tight">Redes (CCNA)</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fas fa-shield-alt text-5xl mb-3 text-green-500"></i><span class="font-bold tracking-wider text-sm text-center leading-tight">Ciberseguridad</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fab fa-laravel text-5xl mb-3 text-red-500"></i><span class="font-bold tracking-wider">Laravel</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fab fa-react text-5xl mb-3 text-cyan-400"></i><span class="font-bold tracking-wider">React</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fas fa-database text-5xl mb-3 text-blue-400"></i><span class="font-bold tracking-wider">MySQL</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fas fa-server text-5xl mb-3 text-red-400"></i><span class="font-bold tracking-wider text-center leading-tight">SQL Server</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fab fa-bootstrap text-5xl mb-3 text-purple-500"></i><span class="font-bold tracking-wider">Bootstrap</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fas fa-project-diagram text-5xl mb-3 text-pink-500"></i><span class="font-bold tracking-wider">n8n</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fas fa-terminal text-5xl mb-3 text-gray-400"></i><span class="font-bold tracking-wider">Terminal</span>
-                            </div>
-                            <div class="bg-[#1a1a1a] border-2 border-[#333] rounded-lg p-5 flex flex-col items-center justify-center card-p5 shadow-solid-red text-white hover:border-p5red">
-                                <i class="fab fa-git-alt text-5xl mb-3 text-orange-500"></i><span class="font-bold tracking-wider">Git</span>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="bg-p5black p-6 border-y-8 border-p5yellow relative overflow-hidden mt-16">
-                        <div class="absolute inset-0 bg-tape opacity-20"></div>
-                        <h3 class="font-display text-3xl uppercase mb-6 text-p5yellow relative z-10 text-center" data-i18n="skill_soft">Competencias Destacadas</h3>
-                        
-                        <div class="grid md:grid-cols-2 gap-4 relative z-10">
-                            <div class="bg-white border-4 border-black p-3 font-bold uppercase flex justify-between items-center transform -skew-x-6 hover:skew-x-0 transition-transform cursor-crosshair">
-                                <span><i class="fas fa-comments text-p5red mr-2"></i> <span data-i18n="soft1">Liderazgo & Com.</span></span>
-                                <span class="text-xs bg-black text-white px-2 py-1" data-i18n="lvl_high">ALTO</span>
-                            </div>
-                            <div class="bg-white border-4 border-black p-3 font-bold uppercase flex justify-between items-center transform skew-x-6 hover:skew-x-0 transition-transform cursor-crosshair">
-                                <span><i class="fas fa-fire text-p5red mr-2"></i> <span data-i18n="soft2">Resolución Problemas</span></span>
-                                <span class="text-xs bg-black text-white px-2 py-1" data-i18n="lvl_high">ALTO</span>
-                            </div>
-                            <div class="bg-white border-4 border-black p-3 font-bold uppercase flex justify-between items-center transform -skew-x-6 hover:skew-x-0 transition-transform cursor-crosshair">
-                                <span><i class="fas fa-mobile-alt text-p5red mr-2"></i> <span data-i18n="soft3">Desarrollo Móvil</span></span>
-                                <span class="text-xs bg-black text-white px-2 py-1" data-i18n="lvl_mid">MEDIO</span>
-                            </div>
-                            <div class="bg-white border-4 border-black p-3 font-bold uppercase flex justify-between items-center transform skew-x-6 hover:skew-x-0 transition-transform cursor-crosshair">
-                                <span><i class="fas fa-shield-alt text-p5red mr-2"></i> <span data-i18n="soft4">Ciberseguridad</span></span>
-                                <span class="text-xs bg-black text-white px-2 py-1" data-i18n="lvl_basic">BÁSICO</span>
+                            <div class="bg-p5black p-4 md:p-5 border-y-8 border-p5yellow relative overflow-hidden shrink-0 mt-auto">
+                                <div class="absolute inset-0 bg-tape opacity-20"></div>
+                                <h3 class="font-display text-xl md:text-2xl uppercase mb-3 text-p5yellow relative z-10 text-center" data-i18n="skill_soft">Competencias Destacadas</h3>
+                                
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 relative z-10">
+                                    <div class="bg-white border-2 border-black p-2 md:p-3 font-bold uppercase flex items-center justify-center text-center transform -skew-x-6 hover:skew-x-0 transition-transform shadow-solid-sm"><span class="text-xs md:text-sm leading-tight" data-i18n="comp1">Liderazgo & Com.</span></div>
+                                    <div class="bg-white border-2 border-black p-2 md:p-3 font-bold uppercase flex items-center justify-center text-center transform skew-x-6 hover:skew-x-0 transition-transform shadow-solid-sm"><span class="text-xs md:text-sm leading-tight" data-i18n="comp2">Resolución Prob.</span></div>
+                                    <div class="bg-white border-2 border-black p-2 md:p-3 font-bold uppercase flex items-center justify-center text-center transform -skew-x-6 hover:skew-x-0 transition-transform shadow-solid-sm"><span class="text-xs md:text-sm leading-tight" data-i18n="comp3">Desarrollo Móvil</span></div>
+                                    <div class="bg-white border-2 border-black p-2 md:p-3 font-bold uppercase flex items-center justify-center text-center transform skew-x-6 hover:skew-x-0 transition-transform shadow-solid-sm"><span class="text-xs md:text-sm leading-tight" data-i18n="comp5">Gestión de Amenazas</span></div>
+                                    <div class="bg-white border-2 border-black p-2 md:p-3 font-bold uppercase flex items-center justify-center text-center transform -skew-x-6 hover:skew-x-0 transition-transform shadow-solid-sm"><span class="text-xs md:text-sm leading-tight" data-i18n="comp6">Respuesta a Incidentes</span></div>
+                                    <div class="bg-white border-2 border-black p-2 md:p-3 font-bold uppercase flex items-center justify-center text-center transform skew-x-6 hover:skew-x-0 transition-transform shadow-solid-sm"><span class="text-xs md:text-sm leading-tight" data-i18n="comp7">Marcos de Seguridad</span></div>
+                                    <div class="bg-white border-2 border-black p-2 md:p-3 font-bold uppercase flex items-center justify-center text-center transform -skew-x-6 hover:skew-x-0 transition-transform shadow-solid-sm"><span class="text-xs md:text-sm leading-tight" data-i18n="comp8">Reforzamiento Seg.</span></div>
+                                    <div class="bg-white border-2 border-black p-2 md:p-3 font-bold uppercase flex items-center justify-center text-center transform skew-x-6 hover:skew-x-0 transition-transform shadow-solid-sm"><span class="text-xs md:text-sm leading-tight" data-i18n="comp11">Herramientas SIEM</span></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 <!-- VISTA: CERTIFICACIONES -->
-                <section id="certificaciones-view" class="tab-content view-hidden">
-                    <div class="text-center mb-12">
-                        <h2 class="text-6xl md:text-8xl font-display uppercase text-p5yellow text-stroke-black transform -rotate-3 inline-block drop-shadow-[0_10px_0_rgba(0,0,0,1)]">
+                <section id="certificaciones-view" class="tab-content view-hidden h-full flex-col justify-start">
+                    <div class="text-center mb-6 shrink-0">
+                        <h2 class="text-5xl md:text-6xl font-display uppercase text-p5yellow text-stroke-black transform -rotate-1 inline-block drop-shadow-[0_4px_0_rgba(0,0,0,1)]">
                             <span data-i18n="cert_title1">Certificados</span> & <span class="text-p5red" data-i18n="cert_title2">Educación</span>
                         </h2>
                     </div>
 
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="md:col-span-2 bg-p5red text-white border-4 border-black p-6 shadow-solid relative transform rotate-1 card-p5 mb-6">
-                            <div class="absolute -top-5 -left-5 bg-p5yellow border-4 border-black w-12 h-12 flex items-center justify-center transform -rotate-12">
-                                <i class="fas fa-star text-black text-2xl"></i>
+                    <div class="w-full flex-1 flex flex-col justify-start min-h-0 pb-4 overflow-y-auto">
+                        <div class="grid lg:grid-cols-2 gap-4 mb-6 shrink-0">
+                            <div class="bg-p5red text-white border-4 border-black p-4 md:p-5 shadow-solid-sm relative transform rotate-1 card-p5 flex flex-col justify-center">
+                                <div class="absolute -top-3 -left-3 bg-p5yellow border-4 border-black w-10 h-10 flex items-center justify-center transform -rotate-12">
+                                    <i class="fas fa-star text-black text-base"></i>
+                                </div>
+                                <h3 class="font-display text-xl md:text-2xl uppercase mb-1 ml-6 text-stroke-black leading-none" data-i18n="edu_title">Ing. en Sistemas Computacionales</h3>
+                                <p class="font-bold text-sm md:text-base mb-2 ml-6 text-p5yellow leading-tight" data-i18n="edu_school">Instituto Tecnológico Superior de NCG</p>
+                                <div class="ml-6"><span class="bg-black px-2 py-1 text-[10px] md:text-xs font-bold uppercase border border-white" data-i18n="edu_date">2022 - Presente (En Curso)</span></div>
                             </div>
-                            <h3 class="font-display text-4xl uppercase mb-1 ml-6 text-stroke-black" data-i18n="edu_title">Ing. en Sistemas Computacionales</h3>
-                            <p class="font-bold text-xl mb-2 ml-6 text-p5yellow" data-i18n="edu_school">Instituto Tecnológico Superior de NCG</p>
-                            <p class="bg-black inline-block px-3 py-1 font-bold uppercase ml-6 border-2 border-white" data-i18n="edu_date">2022 - Presente (En Curso)</p>
-                        </div>
 
-                        <div class="md:col-span-2 bg-p5white text-p5black border-4 border-black p-6 shadow-solid relative transform -rotate-1 card-p5 mb-6">
-                            <div class="absolute -top-5 -right-5 bg-p5black border-4 border-p5red w-12 h-12 flex items-center justify-center transform rotate-12">
-                                <i class="fas fa-building text-white text-2xl"></i>
-                            </div>
-                            <h3 class="font-display text-4xl uppercase mb-1 mr-6 text-p5red" data-i18n="edu2_title">Arquitectura y Urbanismo</h3>
-                            <p class="font-bold text-xl mb-2 mr-6 text-black" data-i18n="edu2_school">Universidad Privada del Norte</p>
-                            <p class="bg-p5yellow text-black inline-block px-3 py-1 font-bold uppercase border-2 border-black" data-i18n="edu2_date">2021 (Incompleto)</p>
-                        </div>
-
-                        <!-- Lista de Certificados -->
-                        <div class="bg-p5white border-4 border-black p-4 flex gap-4 items-center card-p5 shadow-solid-sm">
-                            <div class="bg-blue-600 text-white w-16 h-16 flex items-center justify-center border-4 border-black shrink-0 transform -rotate-6">
-                                <i class="fas fa-brain text-3xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-display uppercase text-xl text-black leading-none mb-1">AI Fundamentals</h4>
-                                <p class="font-bold text-sm text-p5red" data-i18n="cert_date1">IBM SkillsBuild / Cisco • Mar 2026</p>
+                            <div class="bg-p5white text-p5black border-4 border-black p-4 md:p-5 shadow-solid-sm relative transform -rotate-1 card-p5 flex flex-col justify-center">
+                                <div class="absolute -top-3 -right-3 bg-p5black border-4 border-p5red w-10 h-10 flex items-center justify-center transform rotate-12">
+                                    <i class="fas fa-building text-white text-base"></i>
+                                </div>
+                                <h3 class="font-display text-xl md:text-2xl uppercase mb-1 mr-6 text-p5red leading-none" data-i18n="edu2_title">Arquitectura y Urbanismo</h3>
+                                <p class="font-bold text-sm md:text-base mb-2 mr-6 text-black leading-tight" data-i18n="edu2_school">Universidad Privada del Norte</p>
+                                <div><span class="bg-p5yellow text-black px-2 py-1 text-[10px] md:text-xs font-bold uppercase border border-black" data-i18n="edu2_date">2021 (Incompleto)</span></div>
                             </div>
                         </div>
 
-                        <div class="bg-p5white border-4 border-black p-4 flex gap-4 items-center card-p5 shadow-solid-sm">
-                            <div class="bg-purple-600 text-white w-16 h-16 flex items-center justify-center border-4 border-black shrink-0 transform rotate-3">
-                                <i class="fas fa-rocket text-3xl"></i>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 content-start pb-2">
+                            
+                            <div class="bg-p5white border-4 border-black p-3 md:p-4 flex gap-3 items-center card-p5 shadow-solid-sm">
+                                <div class="bg-blue-600 text-white w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-black shrink-0 transform -rotate-6">
+                                    <i class="fas fa-brain text-lg md:text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-display uppercase text-sm md:text-base text-black leading-tight mb-0.5">AI Fundamentals</h4>
+                                    <p class="font-bold text-[10px] md:text-xs text-p5red leading-tight" data-i18n="cert_date1">IBM SkillsBuild • Mar 2026</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-display uppercase text-xl text-black leading-none mb-1">Ecosistema LLAMA IA</h4>
-                                <p class="font-bold text-sm text-p5red" data-i18n="cert_date2">Infotec • Jul 2025</p>
-                            </div>
-                        </div>
 
-                        <div class="bg-p5white border-4 border-black p-4 flex gap-4 items-center card-p5 shadow-solid-sm">
-                            <div class="bg-green-600 text-white w-16 h-16 flex items-center justify-center border-4 border-black shrink-0 transform -rotate-3">
-                                <i class="fas fa-lock text-3xl"></i>
+                            <div class="bg-p5white border-4 border-black p-3 md:p-4 flex gap-3 items-center card-p5 shadow-solid-sm">
+                                <div class="bg-purple-600 text-white w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-black shrink-0 transform rotate-3">
+                                    <i class="fas fa-rocket text-lg md:text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-display uppercase text-sm md:text-base text-black leading-tight mb-0.5">Ecosistema LLAMA</h4>
+                                    <p class="font-bold text-[10px] md:text-xs text-p5red leading-tight" data-i18n="cert_date2">Infotec • Jul 2025</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-display uppercase text-xl text-black leading-none mb-1">Intro Ciberseguridad</h4>
-                                <p class="font-bold text-sm text-p5red" data-i18n="cert_date3">Cisco • Ene 2023</p>
-                            </div>
-                        </div>
 
-                        <div class="bg-p5white border-4 border-black p-4 flex gap-4 items-center card-p5 shadow-solid-sm">
-                            <div class="bg-red-500 text-white w-16 h-16 flex items-center justify-center border-4 border-black shrink-0 transform rotate-6">
-                                <i class="fab fa-google text-3xl"></i>
+                            <div class="bg-p5white border-4 border-black p-3 md:p-4 flex gap-3 items-center card-p5 shadow-solid-sm">
+                                <div class="bg-green-600 text-white w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-black shrink-0 transform -rotate-3">
+                                    <i class="fas fa-lock text-lg md:text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-display uppercase text-sm md:text-base text-black leading-tight mb-0.5">Ciberseguridad</h4>
+                                    <p class="font-bold text-[10px] md:text-xs text-p5red leading-tight" data-i18n="cert_date3">Cisco • Ene 2023</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-display uppercase text-xl text-black leading-none mb-1">Prof. Cybersecurity</h4>
-                                <p class="font-bold text-sm text-p5red" data-i18n="cert_date4">Google • Mar 2025</p>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-p5white border-4 border-black p-4 flex gap-4 items-center card-p5 shadow-solid-sm">
-                            <div class="bg-blue-500 text-white w-16 h-16 flex items-center justify-center border-4 border-black shrink-0 transform -rotate-2">
-                                <i class="fas fa-network-wired text-3xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-display uppercase text-xl text-black leading-none mb-1">CCNA: Intro Networks</h4>
-                                <p class="font-bold text-sm text-p5red" data-i18n="cert_date5">Cisco • Abr 2025</p>
-                            </div>
-                        </div>
 
-                        <div class="bg-p5white border-4 border-black p-4 flex gap-4 items-center card-p5 shadow-solid-sm">
-                            <div class="bg-blue-800 text-white w-16 h-16 flex items-center justify-center border-4 border-black shrink-0 transform rotate-2">
-                                <span class="font-display text-2xl">Ps</span>
+                            <div class="bg-p5white border-4 border-black p-3 md:p-4 flex gap-3 items-center card-p5 shadow-solid-sm">
+                                <div class="bg-red-500 text-white w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-black shrink-0 transform rotate-6">
+                                    <i class="fab fa-google text-lg md:text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-display uppercase text-sm md:text-base text-black leading-tight mb-0.5">Cybersecurity</h4>
+                                    <p class="font-bold text-[10px] md:text-xs text-p5red leading-tight" data-i18n="cert_date4">Google • Mar 2025</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-display uppercase text-xl text-black leading-none mb-1">Adobe Photoshop</h4>
-                                <p class="font-bold text-sm text-p5red" data-i18n="cert_date6">CIBERTEC • Ene 2014</p>
+                            
+                            <div class="bg-p5white border-4 border-black p-3 md:p-4 flex gap-3 items-center card-p5 shadow-solid-sm">
+                                <div class="bg-blue-500 text-white w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-black shrink-0 transform -rotate-2">
+                                    <i class="fas fa-network-wired text-lg md:text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-display uppercase text-sm md:text-base text-black leading-tight mb-0.5">CCNA: Networks</h4>
+                                    <p class="font-bold text-[10px] md:text-xs text-p5red leading-tight" data-i18n="cert_date5">Cisco • Abr 2025</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="bg-p5white border-4 border-black p-4 flex gap-4 items-center card-p5 shadow-solid-sm">
-                            <div class="bg-yellow-500 text-black w-16 h-16 flex items-center justify-center border-4 border-black shrink-0 transform -rotate-3">
-                                <i class="fab fa-linux text-3xl"></i>
+                            <div class="bg-p5white border-4 border-black p-3 md:p-4 flex gap-3 items-center card-p5 shadow-solid-sm">
+                                <div class="bg-blue-800 text-white w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-black shrink-0 transform rotate-2">
+                                    <span class="font-display text-lg md:text-2xl">Ps</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-display uppercase text-sm md:text-base text-black leading-tight mb-0.5">Photoshop</h4>
+                                    <p class="font-bold text-[10px] md:text-xs text-p5red leading-tight" data-i18n="cert_date6">CIBERTEC • Ene 2014</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-display uppercase text-xl text-black leading-none mb-1">NDG Linux Unhatched</h4>
-                                <p class="font-bold text-sm text-p5red" data-i18n="cert_date7">Cisco • Ene 2025</p>
-                            </div>
-                        </div>
 
-                        <div class="bg-p5white border-4 border-black p-4 flex gap-4 items-center card-p5 shadow-solid-sm">
-                            <div class="bg-blue-500 text-white w-16 h-16 flex items-center justify-center border-4 border-black shrink-0 transform rotate-6">
-                                <i class="fab fa-google text-3xl"></i>
+                            <div class="bg-p5white border-4 border-black p-3 md:p-4 flex gap-3 items-center card-p5 shadow-solid-sm">
+                                <div class="bg-yellow-500 text-black w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-black shrink-0 transform -rotate-3">
+                                    <i class="fab fa-linux text-lg md:text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-display uppercase text-sm md:text-base text-black leading-tight mb-0.5">Linux Unhatched</h4>
+                                    <p class="font-bold text-[10px] md:text-xs text-p5red leading-tight" data-i18n="cert_date7">Cisco • Ene 2025</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-display uppercase text-xl text-black leading-none mb-1" data-i18n="cert_title8">Soporte de TI</h4>
-                                <p class="font-bold text-sm text-p5red"><span data-i18n="cert_date8">Google • Dic 2023</span> • ID: V6YF8WFDBHAA</p>
-                            </div>
-                        </div>
 
-                        <div class="bg-p5white border-4 border-black p-4 flex gap-4 items-center card-p5 shadow-solid-sm">
-                            <div class="bg-indigo-800 text-white w-16 h-16 flex items-center justify-center border-4 border-black shrink-0 transform -rotate-2">
-                                <i class="fas fa-language text-3xl"></i>
+                            <div class="bg-p5white border-4 border-black p-3 md:p-4 flex gap-3 items-center card-p5 shadow-solid-sm">
+                                <div class="bg-blue-500 text-white w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-black shrink-0 transform rotate-6">
+                                    <i class="fab fa-google text-lg md:text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-display uppercase text-sm md:text-base text-black leading-tight mb-0.5" data-i18n="cert_title8">Soporte de TI</h4>
+                                    <p class="font-bold text-[9px] md:text-[10px] text-p5red leading-tight"><span data-i18n="cert_date8">Google • Dic 2023</span><br>ID: V6YF8WFDBHAA</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-display uppercase text-xl text-black leading-none mb-1">Oxford Placement Test</h4>
-                                <p class="font-bold text-sm text-p5red" data-i18n="cert_date9">Oxford University Press • Ene 2022</p>
-                            </div>
-                        </div>
 
-                        <div class="bg-p5white border-4 border-black p-4 flex gap-4 items-center card-p5 shadow-solid-sm">
-                            <div class="bg-green-600 text-white w-16 h-16 flex items-center justify-center border-4 border-black shrink-0 transform rotate-2">
-                                <i class="fas fa-mobile-alt text-3xl"></i>
+                            <div class="bg-p5white border-4 border-black p-3 md:p-4 flex gap-3 items-center card-p5 shadow-solid-sm">
+                                <div class="bg-indigo-800 text-white w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-black shrink-0 transform -rotate-2">
+                                    <i class="fas fa-language text-lg md:text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-display uppercase text-sm md:text-base text-black leading-tight mb-0.5">Placement Test</h4>
+                                    <p class="font-bold text-[10px] md:text-xs text-p5red leading-tight" data-i18n="cert_date9">Oxford Univ. • Ene 2022</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-display uppercase text-xl text-black leading-none mb-1" data-i18n="cert_title10">Desarrollo de Apps Móviles</h4>
-                                <p class="font-bold text-sm text-p5red"><span data-i18n="cert_date10">Google Actívate • Jun 2020</span> • ID: D6E EM7 W4D</p>
-                            </div>
-                        </div>
 
-                        <div class="bg-p5white border-4 border-black p-4 flex gap-4 items-center card-p5 shadow-solid-sm">
-                            <div class="bg-cyan-600 text-white w-16 h-16 flex items-center justify-center border-4 border-black shrink-0 transform -rotate-6">
-                                <i class="fas fa-comment-dots text-3xl"></i>
+                            <div class="bg-p5white border-4 border-black p-3 md:p-4 flex gap-3 items-center card-p5 shadow-solid-sm">
+                                <div class="bg-green-600 text-white w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-black shrink-0 transform rotate-2">
+                                    <i class="fas fa-mobile-alt text-lg md:text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-display uppercase text-sm md:text-base text-black leading-tight mb-0.5" data-i18n="cert_title10">Apps Móviles</h4>
+                                    <p class="font-bold text-[9px] md:text-[10px] text-p5red leading-tight"><span data-i18n="cert_date10">Google Act. • Jun 2020</span><br>ID: D6E EM7 W4D</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-display uppercase text-xl text-black leading-none mb-1">Michigan English Test (MET)</h4>
-                                <p class="font-bold text-sm text-p5red" data-i18n="cert_date11">ICPNA • Ene 2018</p>
+
+                            <div class="bg-p5white border-4 border-black p-3 md:p-4 flex gap-3 items-center card-p5 shadow-solid-sm">
+                                <div class="bg-cyan-600 text-white w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-black shrink-0 transform -rotate-6">
+                                    <i class="fas fa-comment-dots text-lg md:text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-display uppercase text-sm md:text-base text-black leading-none mb-0.5">MET English</h4>
+                                    <p class="font-bold text-[10px] md:text-xs text-p5red leading-tight" data-i18n="cert_date11">ICPNA • Ene 2018</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -667,31 +725,40 @@
                 role: "Desarrollador Web", contact: "Contacto", nav_profile: "Perfil", nav_experience: "Experiencia",
                 nav_projects: "Proyectos", nav_skills: "Habilidades", nav_certs: "Certificados",
                 about_me: "Acerca de Mí",
-                about_desc: "Soy un desarrollador enfocado en <span class='bg-p5black text-white px-1'>páginas y plataformas web modernas</span>. Estudiante de Ingeniería en Sistemas Computacionales con sólidos conocimientos en Ciberseguridad, Programación Web, e IA. Combino habilidades técnicas con experiencia práctica en liderazgo de equipos.",
-                data: "Datos", location: "Ubicación", status: "Estado Actual", status_desc: "Estudiando & Disponible",
+                about_desc: "Soy un desarrollador enfocado en <span class='bg-p5black text-white px-2 py-0.5'>páginas y plataformas web modernas</span>. Estudiante de Ingeniería en Sistemas Computacionales con sólidos conocimientos en Ciberseguridad, Programación Web, e IA. Combino habilidades técnicas con experiencia práctica en liderazgo de equipos.",
+                data: "Datos", location: "Ubicación", status: "Estado Actual", status_desc: "Disponible para: prácticas, trabajo, freelance o colaboración remota.",
                 languages: "Idiomas", languages_desc: "Español, Inglés Intermedio", download_cv: "Descargar CV",
+                
+                interests_title: "Intereses",
+                int1: "Desarrollo Móvil", int2: "Ciberseguridad", int3: "IA Aplicada", int4: "Automatización", int5: "Programación Web",
+                int6: "Diseño UI/UX", int7: "Arquitectura Cloud", int8: "Desarrollo de Juegos", int9: "Internet de las Cosas (IoT)", int10: "Análisis de Datos",
+
                 exp_title1: "Experiencia", exp_title2: "Laboral",
                 job1_role: "Limpieza y Atención", job1_desc: "Encargado de limpieza general y organización.", job1_b1: "Paciencia, organización y atención al detalle.", job1_b2: "Mantenimiento de estándares de calidad.",
                 job2_role: "Asistencia al Cliente", job2_desc: "Soporte técnico y atención para usuarios de Glovo en España.", job2_b1: "Herramientas de gestión (Slack, CRM).", job2_b2: "Resolución de conflictos con empatía.",
                 job3_role: "Encuestador", job3_desc: "Estudios de mercado para el público chileno. Persuasión y comunicación verbal.",
-                job4_title: "La Iglesia de Jesucristo", job4_role: "Voluntariado / Misionero", job4_desc: "Servicio comunitario en CDMX. Liderazgo y adaptabilidad al estrés.",
+                job4_title: "La Iglesia de Jesucristo de los Santos de los Últimos Días", job4_role: "Voluntariado / Misionero", job4_desc: "Servicio comunitario en CDMX. Liderazgo y adaptabilidad al estrés.",
                 proj_sub: "/// Portafolio", proj1_title: "Gestor Escolar", proj1_desc: "Webapp para administrar calificaciones y gestión de estudiantes.",
                 btn_code: "Código", btn_visit: "Visitar", btn_source: "Código Fuente",
                 proj2_desc: "Plataforma para comparar precios de laptops y componentes PC.",
                 proj3_title: "Realidad Virtual 3D", proj3_desc: "Experiencia inmersiva del cuerpo humano en realidad virtual.",
-                proj4_desc: "Portal de noticias y reseñas de videojuegos con actualización constante.",
-                proj5_desc: "Modelo interactivo 3D de la Tierra con capas informativas.",
+                proj4_desc: "Portal de noticias y reseñas de videojuegos.",
+                proj5_desc: "Modelo interactivo 3D de la Tierra.",
                 btn_more: "Ver Más", btn_more_desc: "Ir a GitHub",
                 skills_combined: "Lenguajes y Tecnologías", skill_soft: "Competencias Destacadas",
-                soft1: "Liderazgo & Com.", soft2: "Resolución Problemas", soft3: "Desarrollo Móvil", soft4: "Ciberseguridad",
+                
+                comp1: "Liderazgo & Com.", comp2: "Resolución Prob.", comp3: "Desarrollo Móvil", comp4: "Ciberseguridad",
+                comp5: "Gestión de Amenazas", comp6: "Respuesta a Incidentes", comp7: "Marcos de Seguridad", comp8: "Reforzamiento Seg.",
+                comp11: "Herramientas SIEM",
+                
                 lvl_high: "ALTO", lvl_mid: "MEDIO", lvl_basic: "BÁSICO",
                 cert_title1: "Certificados", cert_title2: "Educación",
                 edu_title: "Ing. en Sistemas Computacionales", edu_school: "Instituto Tecnológico Superior de NCG", edu_date: "2022 - Presente (En Curso)",
                 edu2_title: "Arquitectura y Urbanismo", edu2_school: "Universidad Privada del Norte", edu2_date: "2021 (Incompleto)",
-                cert_date1: "IBM SkillsBuild / Cisco • Mar 2026", cert_date2: "Infotec • Jul 2025", cert_date3: "Cisco • Ene 2023",
+                cert_date1: "IBM SkillsBuild • Mar 2026", cert_date2: "Infotec • Jul 2025", cert_date3: "Cisco • Ene 2023",
                 cert_date4: "Google • Mar 2025", cert_date5: "Cisco • Abr 2025", cert_date6: "CIBERTEC • Ene 2014",
                 cert_date7: "Cisco • Ene 2025", cert_title8: "Soporte de TI", cert_date8: "Google • Dic 2023",
-                cert_date9: "Oxford University Press • Ene 2022", cert_title10: "Desarrollo de Apps Móviles", cert_date10: "Google Actívate • Jun 2020",
+                cert_date9: "Oxford Univ. • Ene 2022", cert_title10: "Apps Móviles", cert_date10: "Google Act. • Jun 2020",
                 cert_date11: "ICPNA • Ene 2018",
                 loading: "CARGANDO"
             },
@@ -699,31 +766,40 @@
                 role: "Web Developer", contact: "Contact", nav_profile: "Profile", nav_experience: "Experience",
                 nav_projects: "Projects", nav_skills: "Skills", nav_certs: "Certificates",
                 about_me: "About Me",
-                about_desc: "I am a developer focused on <span class='bg-p5black text-white px-1'>modern web pages and platforms</span>. Computer Systems Engineering student with solid knowledge in Cybersecurity, Web Programming, and AI. I combine technical skills with practical experience in team leadership.",
-                data: "Data Log", location: "Location", status: "Current Status", status_desc: "Studying & Available",
+                about_desc: "I am a developer focused on <span class='bg-p5black text-white px-2 py-0.5'>modern web pages and platforms</span>. Computer Systems Engineering student with solid knowledge in Cybersecurity, Web Programming, and AI. I combine technical skills with practical experience in team leadership.",
+                data: "Data Log", location: "Location", status: "Current Status", status_desc: "Available for: internships, work, freelance, or remote collaboration.",
                 languages: "Languages", languages_desc: "Spanish, Intermediate English", download_cv: "Download Resume",
+
+                interests_title: "Interests",
+                int1: "Mobile Dev", int2: "Cybersecurity", int3: "Applied AI", int4: "Automation", int5: "Web Programming",
+                int6: "UI/UX Design", int7: "Cloud Architecture", int8: "Game Development", int9: "Internet of Things (IoT)", int10: "Data Analysis",
+
                 exp_title1: "Work", exp_title2: "Experience",
                 job1_role: "Cleaning & Service", job1_desc: "In charge of general cleaning and organization.", job1_b1: "Patience, organization and attention to detail.", job1_b2: "Maintenance of quality standards.",
                 job2_role: "Customer Support", job2_desc: "Technical support and customer service for Glovo users in Spain.", job2_b1: "Management tools (Slack, CRM).", job2_b2: "Conflict resolution with empathy.",
                 job3_role: "Surveyor", job3_desc: "Market research for the Chilean public. Persuasion and verbal communication.",
-                job4_title: "The Church of Jesus Christ", job4_role: "Volunteer / Missionary", job4_desc: "Community service in CDMX. Leadership and stress adaptability.",
+                job4_title: "The Church of Jesus Christ of Latter-day Saints", job4_role: "Volunteer / Missionary", job4_desc: "Community service in CDMX. Leadership and stress adaptability.",
                 proj_sub: "/// Portfolio", proj1_title: "School Manager", proj1_desc: "Webapp to manage grades and student administration.",
                 btn_code: "Code", btn_visit: "Visit", btn_source: "Source Code",
                 proj2_desc: "Platform to compare prices of laptops and PC components.",
                 proj3_title: "3D Virtual Reality", proj3_desc: "Immersive human body experience in virtual reality.",
-                proj4_desc: "Video game news and review portal with constant updates.",
-                proj5_desc: "Interactive 3D model of the Earth with informative layers.",
+                proj4_desc: "Video game news and review portal.",
+                proj5_desc: "Interactive 3D model of the Earth.",
                 btn_more: "See More", btn_more_desc: "Go to GitHub",
                 skills_combined: "Languages & Technologies", skill_soft: "Core Competencies",
-                soft1: "Leadership & Comm.", soft2: "Problem Solving", soft3: "Mobile Dev", soft4: "Cybersecurity",
+                
+                comp1: "Leadership & Comm.", comp2: "Problem Solving", comp3: "Mobile Dev", comp4: "Cybersecurity",
+                comp5: "Threat Management", comp6: "Incident Response", comp7: "Security Frameworks", comp8: "Security Hardening",
+                comp11: "SIEM Tools",
+
                 lvl_high: "HIGH", lvl_mid: "MID", lvl_basic: "BASIC",
                 cert_title1: "Certificates", cert_title2: "& Education",
                 edu_title: "Computer Systems Engineering", edu_school: "Superior Technological Institute of NCG", edu_date: "2022 - Present (Ongoing)",
                 edu2_title: "Architecture and Urbanism", edu2_school: "Private University of the North", edu2_date: "2021 (Incomplete)",
-                cert_date1: "IBM SkillsBuild / Cisco • Mar 2026", cert_date2: "Infotec • Jul 2025", cert_date3: "Cisco • Jan 2023",
+                cert_date1: "IBM SkillsBuild • Mar 2026", cert_date2: "Infotec • Jul 2025", cert_date3: "Cisco • Jan 2023",
                 cert_date4: "Google • Mar 2025", cert_date5: "Cisco • Apr 2025", cert_date6: "CIBERTEC • Jan 2014",
                 cert_date7: "Cisco • Jan 2025", cert_title8: "IT Support", cert_date8: "Google • Dec 2023",
-                cert_date9: "Oxford University Press • Jan 2022", cert_title10: "Mobile App Development", cert_date10: "Google Activate • Jun 2020",
+                cert_date9: "Oxford Univ. • Jan 2022", cert_title10: "Mobile Apps", cert_date10: "Google Act. • Jun 2020",
                 cert_date11: "ICPNA • Jan 2018",
                 loading: "LOADING"
             }
@@ -744,14 +820,22 @@
             const btnEs = document.getElementById('btn-es');
             const btnEn = document.getElementById('btn-en');
             if (lang === 'es') {
-                btnEs.className = "px-3 py-1 font-display text-sm transition-colors bg-p5yellow text-black border-r-2 border-black";
-                btnEn.className = "px-3 py-1 font-display text-sm transition-colors bg-p5white text-gray-500 hover:text-black";
+                btnEs.className = "px-3 py-1 font-display text-sm md:text-base transition-colors bg-p5yellow text-black border-r-2 border-black";
+                btnEn.className = "px-3 py-1 font-display text-sm md:text-base transition-colors bg-p5white text-gray-500 hover:text-black";
             } else {
-                btnEs.className = "px-3 py-1 font-display text-sm transition-colors bg-p5white text-gray-500 hover:text-black border-r-2 border-black";
-                btnEn.className = "px-3 py-1 font-display text-sm transition-colors bg-p5yellow text-black";
+                btnEs.className = "px-3 py-1 font-display text-sm md:text-base transition-colors bg-p5white text-gray-500 hover:text-black border-r-2 border-black";
+                btnEn.className = "px-3 py-1 font-display text-sm md:text-base transition-colors bg-p5yellow text-black";
             }
 
             document.documentElement.lang = lang;
+
+            // ACTUALIZA LA RUTA DEL CURRICULUM SEGUN EL IDIOMA
+            const cvDownloadBtns = document.querySelectorAll('#cv-download-btn');
+            cvDownloadBtns.forEach(btn => {
+                const cvFileName = lang === 'es' ? 'CVRenzoCaycho.pdf' : 'CVRenzoCaycho-English.pdf';
+                btn.href = cvFileName;
+                btn.download = cvFileName;
+            });
         }
 
         document.getElementById('lang-toggle').addEventListener('click', () => {
@@ -792,7 +876,7 @@
                 const activeView = document.getElementById(`${tabName}-view`);
                 if (activeView) {
                     activeView.classList.remove('view-hidden');
-                    void activeView.offsetWidth;
+                    void activeView.offsetWidth; // force reflow
                     activeView.classList.add('view-active');
                 }
 
@@ -800,9 +884,9 @@
                     if (btn.dataset.tab === tabName) btn.classList.add('active');
                     else btn.classList.remove('active');
                 });
-            }, 300);
+            }, 250);
 
-            setTimeout(() => { slashScreen.classList.remove('active'); }, 700);
+            setTimeout(() => { slashScreen.classList.remove('active'); }, 500);
         }
 
         tabButtons.forEach(btn => {
